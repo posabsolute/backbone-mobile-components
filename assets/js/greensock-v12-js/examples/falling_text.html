@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>Falling Text</title>
+	
+		<meta name="author" content="Noel Tibbles" />
+	
+		<style>
+			body {
+				font: 1em monospace;
+				color: #000;
+				overflow:hidden;
+				background-color:#000000;
+			}
+			.txt {
+				float: left;
+				position: absolute;
+				font-size: 4em;
+				color: #008000;
+				font-weight: bold;
+				left: 0;
+				top: 0;
+			}
+			#controls {
+				position: fixed;
+				z-index: 2;
+				top: 0;
+				right: 0;
+				width: 200px;
+				padding: 0 20px 20px;
+				background-color: #333333;
+				opacity: .8;
+				font: 1.4em "Arial";
+				color:#FFFFFF;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container"></div>
+		<div id="controls">
+			<p>
+				Enter some text:
+			</p>
+			<input type="text" value="TweenLite is fun" id="txt_input" />
+			<input type="submit" value="Start" id="start" />
+		</div>
+	
+		<script type="text/javascript" src="../src/uncompressed/plugins/CSSPlugin.js"></script>
+		<script type="text/javascript" src="../src/uncompressed/easing/EasePack.js"></script>
+		<script type="text/javascript" src="../src/uncompressed/TweenLite.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script>
+			$(function() {
+				$("#txt_input").keyup(updateText);
+				$("#txt_input").focus(reset);
+				$("#start").click(start);
+	
+				var sentence = "", prevLetter = null;
+				
+				/**
+				 * start
+				 * Loops through each of the div's with a 
+				 * class of "txt" and adds a tween. 
+				 * Randomly get a left, top and rotation.
+				 */
+				function start(evt) {
+					if($(".txt").position().top > 0)
+						updateText();
+	
+					$.each($(".txt"), function(index, val) {
+						var delay = Math.random();
+						TweenLite.to(this, 2, {
+							css : {
+								top : ($(window).height() - $(this).height()) + "px",
+								rotation : getRandom(360),
+								color : "#ad7f0a"
+							},
+							delay: delay,
+							ease : Bounce.easeOut
+						});
+						TweenLite.to(this, 0.7, {
+							css : {
+								left : getRandom($(window).width() - $(this).width()) + "px"
+							},
+							delay: delay
+						});
+					});
+				};
+				
+				/**
+				 * updateText
+				 * On each update, store the value, clear the 
+				 * contents and re-generate the text on screen.
+				 */
+				function updateText(evt) {
+					sentence = $("#txt_input").val().split("");
+					reset();
+	
+					$.each(sentence, function(index, val) {
+						if(val === " ") // check for a space and HTML encode it
+							val = "&nbsp;";
+	
+						var letter = $("<div/>", {
+							id : "txt" + index
+						}).addClass('txt').html(val).appendTo($("#container"));
+	
+						if(prevLetter) {
+							$(letter).css("left", ($(prevLetter).position().left + $(letter).width()) + "px");
+						};
+						prevLetter = letter;
+					});
+					
+					// re-generate the input text
+					$("#txt_input").val(sentence.join(""));
+				};
+	
+				/**
+				 * reset
+				 * Resets the input box and 
+				 * the container holds the letters
+				 */
+				function reset() {
+					$("#txt_input").val("");
+					$("#container").html("");
+				};
+	
+				function getRandom(seed) {
+					return Math.floor(Math.random() * seed);
+				};
+				
+				// initialize
+				updateText();
+			});
+		</script>
+	</body>
+</html>

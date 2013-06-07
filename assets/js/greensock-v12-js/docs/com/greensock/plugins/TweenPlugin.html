@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="TweenPlugin,com.greensock.plugins.TweenPlugin"><title>com.greensock.plugins.TweenPlugin</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'TweenPlugin - GreenSock JavaScript Documentation';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">GreenSock JavaScript API Docs</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?com/greensock/plugins/TweenPlugin.html&amp;com/greensock/plugins/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">TweenPlugin</td><td class="titleTableSubNav" id="subNav" align="right"></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("TweenPlugin"); titleBar_setSubNav(false,false,false,false,false,false,false,false,false,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">com.greensock.plugins</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  TweenPlugin</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">TweenPlugin  <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> Object</td></tr><tr><td class="classHeaderTableLabel">Subclasses</td><td> <a href="../../../com/greensock/plugins/BezierPlugin.html">BezierPlugin</a>,  <a href="../../../com/greensock/plugins/ColorPropsPlugin.html">ColorPropsPlugin</a>,  <a href="../../../com/greensock/plugins/CSSPlugin.html">CSSPlugin</a>,  <a href="../../../com/greensock/plugins/CSSRulePlugin.html">CSSRulePlugin</a>,  <a href="../../../com/greensock/plugins/EaselPlugin.html">EaselPlugin</a>,  <a href="../../../com/greensock/plugins/RaphaelPlugin.html">RaphaelPlugin</a>,  <a href="../../../com/greensock/plugins/RoundPropsPlugin.html">RoundPropsPlugin</a>,  <a href="../../../com/greensock/plugins/ScrollToPlugin.html">ScrollToPlugin</a></td></tr></table><p></p><p></p><p></p>
+ TweenPlugin is the base class for all TweenLite and TweenMax plugins, but generally isn't used directly. 
+ 	
+ <p>
+                  <b>USAGE:</b>
+               </p>
+ 
+               <p>To create your own plugin, extend TweenPlugin and override whichever methods you need (typically
+ <code>_onInitTween()</code> and <code>setRatio()</code>). To make things easier, we have included a
+ file named <code>TEMPLATE_Plugin.js</code> in the plugins directory that serves as a jumping-off point
+ and it has some comments in the code. <code>_onInitTween()</code> is called when the tween renders for 
+ the first time and <code>setRatio()</code> is called on every update and passes a ratio parameter which 
+ is typically a value between 0 and 1, and it changes according to the ease). There are a few 
+ key concepts to keep in mind:</p>
+ 
+               <ol>
+ 	                <li> Pass the TweenPlugin constructor a comma-delimited list of property names that the plugin should
+ 		overwrite, the first of which should be the property name that the plugin intercepts. For example, 
+ 		the ScrollToPlugin handles any tweens of <code>"scrollTo"</code> and it also overwrites other concurrent 
+ 		tweens that are handling the "scrollTo" but you may have a ScalePlugin that handles both "scaleX" and
+ 		"scaleY" properties, thus the comma-delimited list would look like <code>"scale,scaleX,scaleY"</code>. 
+ 		The first name in the list must be unique - two plugins cannot handle the same primary property. </li>
+ 		
+ 	                <li> When a tween that uses your plugin initializes its tween values (normally when it renders for the 
+ 		first time), a new instance of your plugin will be created and its <code>_onInitTween()</code> method 
+ 		is called. That's where you'll want to record any initial values and prepare for the tween. 
+ 		<code>_onInitTween()</code> should return a Boolean value that essentially indicates whether 
+ 		or not the plugin initted successfully. If you return false, TweenLite/Max  will just use a 
+ 		normal tween for the value, ignoring the plugin for that particular tween. For example,
+ 		maybe your tween only works with DOM elements, so if the target isn't one you could 
+ 		return <code>false</code>
+                  </li>
+ 		  
+ 	                <li> The <code>setRatio()</code> method will be called on every frame during the course of the tween 
+ 		and it will be passed a single parameter that's a multiplier (typically between 0 and 1, according
+ 		to the ease) describing the total amount of change from the beginning of the tween (0). It is normally 
+ 		zero at the beginning of the tween and 1 at the end, and inbetween it could be any value based on the 
+ 		ease applied (for example, an <code>ElasticOut</code> ease would cause the value to shoot past 1 and 
+ 		back again before the end of the tween). So if the tween uses the <code>Linear.ease</code>, when it's 
+ 		halfway finished, <code>setRatio(0.5)</code> would be called</li>
+ 		  
+ 	                <li> The <code>_overwriteProps</code> is an array that should contain the properties that your 
+ 		plugin should overwrite in <code>"auto"</code> overwrite mode. For example, an <code>autoAlpha</code> 
+ 		plugin could control the <code>"visible"</code> and <code>"alpha"</code> properties of an object, 
+ 		so if another tween is created that controls the <code>alpha</code> of the target object, 
+ 		your plugin's <code>_kill()</code> method will be called which should handle killing the 
+ 		<code>"alpha"</code> part of the tween. It is your responsibility to populate (and depopulate) 
+ 		the <code>_overwriteProps</code> Array. Failure to do so properly can cause odd overwriting 
+ 		behavior.</li>
+ 		  
+ 	                <li> There's a <code>_roundProps()</code> method that gets called by the <code>RoundPropsPlugin</code> if the
+ 		user requests that certain properties get rounded to the nearest integer. If you use 
+ 		<code>_addTween()</code> method to add property tweens, rounding will happen automatically 
+ 		(if necessary), but if you don't use <code>_addTween()</code> and prefer to manually calculate 
+ 		tween values in your <code>setRatio()</code> method, just remember to override the <code>_roundProps()</code>
+ 		method if that makes sense in your plugin (some plugins wouldn't need to accommodate rounding, like color
+ 		plugins, in which case you can ignore the method altogether).</li>
+ 
+ 	                <li> If you need to run a function when the tween gets disabled, add an <code>_onDisable()</code> method
+ 		(named exactly that) to your plugin. It will automatically be called when the tween gets disabled (typically
+ 		when it finishes and is removed from its parent timeline). Same for <code>_onEnable()</code> if you 
+ 		need to run code when a tween is enabled. These methods should return a Boolean value indicating 
+ 		whether or not they changed any properties on the target becaues if so (<code>true</code>), it helps
+ 		notify any initting tweens of the same target to re-init. It is very rare that an <code>_onDisable()</code>
+ 		or <code>_onEnable()</code> method is necessary, but it can be useful for things like MotionBlurPlugin
+ 		which must do some very advanced things, hiding the target, changing its alpha to almost 0, etc. only
+ 		while the tween occurs. If another alpha tween of that same target overwrites an existing motionBlur
+ 		of the same target, the alpha would be at the wrong value normally, but the if the <code>_onDisable()</code>
+ 		returns <code>true</code>, it would force the new tween to re-init AFTER the alpha was fixed inside
+ 		the <code>_onDisable()</code>. Again, this is <b>VERY</b> rare.</li>
+ 		
+ 	                <li> Please use the same naming convention as the rest of the plugins, like MySpecialPropertyNamePlugin.</li>
+ 
+ 	                <li> If you are handling more than one property in your plugin (like RoundPropsPlugin or ShortRotationPlugin),
+ 		and you're not using <code>_addTween()</code> to create property tweens internally, make sure you override 
+ 		the <code>_kill()</code> method which will be passed a <code>vars</code> parameter with properties that need 
+ 		to be killed (typically for overwriting).</li>
+ 		
+               </ol>
+ 
+               <p>
+                  <b>Copyright 2008-2012, GreenSock. All rights reserved.</b> This work is subject to the terms in <a href="http://www.greensock.com/terms_of_use.html" target="">http://www.greensock.com/terms_of_use.html</a> or for <a href="http://www.greensock.com/club/" target="">Club GreenSock</a> members, the software agreement that was issued with the membership.</p>
+ 
+            <p></p><br/><hr></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Tue Dec 11 2012, 12:05 PM -06:00  </center></div></body></html><!--<br/>Tue Dec 11 2012, 12:05 PM -06:00  -->

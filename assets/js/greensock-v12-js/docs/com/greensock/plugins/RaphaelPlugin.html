@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="RaphaelPlugin,com.greensock.plugins.RaphaelPlugin"><title>com.greensock.plugins.RaphaelPlugin</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'RaphaelPlugin - GreenSock JavaScript Documentation';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">GreenSock JavaScript API Docs</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?com/greensock/plugins/RaphaelPlugin.html&amp;com/greensock/plugins/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">RaphaelPlugin</td><td class="titleTableSubNav" id="subNav" align="right"></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RaphaelPlugin"); titleBar_setSubNav(false,false,false,false,false,false,false,false,false,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">com.greensock.plugins</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  RaphaelPlugin</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">RaphaelPlugin  <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> <a href="../../../com/greensock/plugins/TweenPlugin.html">TweenPlugin</a> <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> Object</td></tr></table><p></p><p></p><p></p>
+ Enables TweenLite and TweenMax to animate properties of Raphael JavaScript objects (see 
+ <a href="http://www.raphaeljs.com/" target="external">http://www.raphaeljs.com/</a>). Raphael is a JavaScript 
+ framework that simplifies work with vector graphics on the web. For example:
+ 
+ <div class="listing" version="3.0"><pre>
+// creates canvas 550 × 400 at 10, 50
+var paper = Raphael(10, 50, 550, 400);
+
+// creates rectangle at x = 50, y = 40, with a width of 200 and height of 100
+var rect = paper.rect(50, 40, 200, 100);
+
+// sets the fill attribute of the rectangle to red (#f00)
+rect.attr("fill", "#f00");
+
+// tween the fill to blue (#00f) and x to 100, y to 100, width to 100 and height to 50 over the course of 3 seconds using an ease of Power1.easeInOut
+TweenLite.to(rect, 3, {raphael:{fill:"#00f", x:100, y:100, width:100, height:50}, ease:Power1.easeInOut});
+</pre></div>
+ 
+               <p>
+                  <i>
+                     <b>Note:</b> a common mistake is to forget to wrap Raphael-related properties in a "raphael" 
+ object which is essential for helping TweenLite/Max understand your intent. </i>
+               </p>
+ 
+               <p>You can tween any of the properties that you would normally set using raphael's <code>attr()</code> method as well
+ as the following transformation properties: <code>rotation, scaleX, scaleY, skewX, skewY, tx and ty</code> and even 
+ <code>shortRotation</code> which will rotate in the shortest direction to the destination value. <code>tx</code> and
+ <code>ty</code> refer to the translation x and y properties (<code>e</code> and <code>f</code> from the element's matrix). 
+ This gives you a lot of control, even beyond what's easily accomplished through Raphael's own methods. </p>
+ 
+               <p>
+                  <b>globalPivot or localPivot</b> - You can define a custom pivot point around which transforms will be made 
+ (rotation, skewX, skewY, scaleX, scaleY, tx, and ty) using either <code>globalPivot</code> or <code>localPivot</code>. The difference
+ between the two is that <code>localPivot</code> uses coordinates according to the object's local coordinate system which is 
+ always the same regardless of its scale/rotation/position. Think of it like a point "inside" the object. <code>globalPivot</code>, 
+ on the other hand, uses global coordinates according to the Raphael object that contains the tween's target. You can define the pivot point 
+ either as an object with x and y properties like: <code>globalPivot:{x:50, y:25}</code> or a comma-delimited string like <code>globalPivot:"50,25"</code>.</p>
+ 
+               <div class="listing" version="3.0"><pre>
+// tween the rotation to 270 degrees and scaleX to 0.5 using a global pivot point of x:120, y:80 over the course of 3 seconds using an ease of Power1.easeInOut
+TweenLite.to(rect, 3, {raphael:{rotation:270, scaleX:0.5, globalPivot:{x:120, y:80}}, ease:Power1.easeInOut});
+</pre></div>
+ 
+               <p>Note that <code>tx</code> and <code>ty</code> are automatically adjusted to accommodate any rotation or skew during the tween. 
+ So, for example, if you tween the rotation and tx and ty, it will work fine but at the end, tx and ty may be slightly different 
+ than what you defined for the tween because they had to be adjusted to prevent the object's rotation from throwing off the visual 
+ position.</p>
+ 
+               <p>
+                  <b>Copyright 2008-2012, GreenSock. All rights reserved.</b> This work is subject to the terms in <a href="http://www.greensock.com/terms_of_use.html" target="">http://www.greensock.com/terms_of_use.html</a> or for <a href="http://www.greensock.com/club/" target="">Club GreenSock</a> members, the software agreement that was issued with the membership.</p>
+ 
+            <p></p><br/><hr></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Tue Dec 11 2012, 12:05 PM -06:00  </center></div></body></html><!--<br/>Tue Dec 11 2012, 12:05 PM -06:00  -->

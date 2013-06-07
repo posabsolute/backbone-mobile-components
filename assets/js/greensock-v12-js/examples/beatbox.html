@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>TweenLite.js Beatbox Demo</title>
+    <script src='../src/uncompressed/TweenMax.js'></script>
+    <script src='http://code.jquery.com/jquery-1.7.1.min.js'></script>
+    <script type="text/javascript">
+/**
+* author: Ian Lollar, ian.lollar@gmail.com
+**/
+(function() {
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+  this.BeatBar = (function() {
+
+    function BeatBar(id) {
+      this.id = id;
+      this.height = 150;
+    }
+
+    BeatBar.prototype.getHeight = function() {
+      return this.height;
+    };
+
+    BeatBar.prototype.setHeight = function(height) {
+      return this.height = height;
+    };
+
+    return BeatBar;
+
+  })();
+
+  this.Application = (function() {
+
+    function Application() {
+      this.setBeat = __bind(this.setBeat, this);
+      this.bump = __bind(this.bump, this);
+      this.colorize = __bind(this.colorize, this);
+      var bar,
+        _this = this;
+      this.bars = (function() {
+        var _i, _len, _ref, _results;
+        _ref = $(".bar");
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          bar = _ref[_i];
+          _results.push(new BeatBar(bar.id));
+        }
+        return _results;
+      })();
+      this.colorPercentage = .5;
+      setInterval(this.colorize, 1000);
+      TweenLite.to($(".bar"), 1, {
+        css: {
+          height: "150px",
+          top: "-150px"
+        },
+        delay: .5
+      });
+      $("#button").click(function(e) {
+        return _this.trigger();
+      });
+      $("#button").mousedown(function(e) {
+        return $("#button").css("background-image", "url(img/tap_button_down.png)");
+      });
+      $("#button").mouseup(function(e) {
+        return $("#button").css("background-image", "url(img/tap_button.png)");
+      });
+      $("#hit").mousemove(function(e) {
+        return _this.setBeatBars(e.pageX / $(window).width());
+      });
+    }
+
+    Application.prototype.setBeatBars = function(percentage) {
+      var bar, beatBar, target, target1, target2, target3, target4, target5, targetBar, targets, _i, _j, _k, _len, _len2, _len3, _ref, _ref2, _results;
+      _ref = this.bars;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        beatBar = _ref[_i];
+        beatBar.setHeight(150);
+      }
+      target = Math.floor(this.bars.length * percentage);
+      targets = [
+        target1 = {
+          id: target - 2,
+          height: 170
+        }, target2 = {
+          id: target - 1,
+          height: 220
+        }, target3 = {
+          id: target,
+          height: 350
+        }, target4 = {
+          id: target + 1,
+          height: 220
+        }, target5 = {
+          id: target + 2,
+          height: 170
+        }
+      ];
+      for (_j = 0, _len2 = targets.length; _j < _len2; _j++) {
+        targetBar = targets[_j];
+        if (this.bars[targetBar.id] != null) {
+          this.bars[targetBar.id].setHeight(targetBar.height);
+        }
+      }
+      _ref2 = this.bars;
+      _results = [];
+      for (_k = 0, _len3 = _ref2.length; _k < _len3; _k++) {
+        bar = _ref2[_k];
+        _results.push(this.animateBars(bar));
+      }
+      return _results;
+    };
+
+    Application.prototype.colorize = function() {
+      var color, max, min, whichColor;
+      max = this.colorPercentage + .1;
+      min = this.colorPercentage - .1;
+      whichColor = (Math.random() * (max - min)) + min;
+      if (whichColor > 1) whichColor = 1;
+      if (whichColor < 0) whichColor = 0;
+      color = '#' + Math.floor(whichColor * 16777215).toString(16);
+      return TweenLite.to($(".bar"), 5, {
+        css: {
+          backgroundColor: color
+        }
+      });
+    };
+
+    Application.prototype.animateBars = function(id) {
+      return TweenLite.to($("#" + id.id), .5, {
+        css: {
+          height: id.height,
+          top: -id.height
+        }
+      });
+    };
+
+    Application.prototype.expand = function(id) {
+      return TweenLite.to($("#" + id.id), .05, {
+        css: {
+          height: 250,
+          top: -250
+        }
+      });
+    };
+
+    Application.prototype.contract = function(id) {
+      return TweenLite.to($("#" + id.id), .05, {
+        css: {
+          height: id.height,
+          top: -id.height
+        }
+      });
+    };
+
+    Application.prototype.trigger = function() {
+      var now;
+      this.stopBeat();
+      this.bump();
+      now = new Date();
+      if (this.lastTrigger != null) this.setBeat(now - this.lastTrigger);
+      return this.lastTrigger = now;
+    };
+
+    Application.prototype.bump = function() {
+      var bar, _i, _j, _len, _len2, _ref, _ref2, _results;
+      _ref = this.bars;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        bar = _ref[_i];
+        this.expand(bar);
+      }
+      _ref2 = this.bars;
+      _results = [];
+      for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
+        bar = _ref2[_j];
+        _results.push(TweenLite.delayedCall(.075, this.contract, [bar]));
+      }
+      return _results;
+    };
+
+    Application.prototype.setBeat = function(seconds) {
+      var color;
+      console.log("beat is " + (seconds / 1000) + " seconds");
+      this.colorPercentage = 1 - ((seconds / 1000) / 5);
+      if (this.colorPercentage > 1) this.colorPercentage = 1;
+      if (this.colorPercentage < 0) this.colorPercentage = 0;
+      color = '#' + Math.floor(this.colorPercentage * 16777215).toString(16);
+      this.intervalSeconds = seconds;
+      this.stopBeat();
+      return this.interval = setInterval(this.bump, this.intervalSeconds);
+    };
+
+    Application.prototype.stopBeat = function() {
+      return clearInterval(this.interval);
+    };
+
+    return Application;
+
+  })();
+
+  $(document).ready(function() {
+    var application;
+    return application = new Application();
+  });
+
+}).call(this);
+    </script>
+    <link href='css/beatbox.css' rel='stylesheet' />
+  </head>
+  <body>
+    <div id='bars'>
+      <div class='barwrapper'>
+        <div class='bar' id='bar1'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar2'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar3'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar4'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar5'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar6'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar7'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar8'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar9'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar10'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar11'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar12'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar13'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar14'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar15'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar16'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar17'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar18'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar19'></div>
+      </div>
+      <div class='barwrapper'>
+        <div class='bar' id='bar20'></div>
+      </div>
+    </div>
+    <div id='hit'></div>
+    <div id='trigger'>
+      <div id='button'></div>
+      <div id='instructions'>Tap the button and it will animate the bars below according to your click speed/pattern.</div>
+    </div>
+  </body>
+</html>

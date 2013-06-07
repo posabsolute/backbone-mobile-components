@@ -1,0 +1,610 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="Animation,com.greensock.core.Animation,autoRemoveChildren,data,smoothChildTiming,ticker,timeline,vars,delay,duration,eventCallback,insert,invalidate,kill,pause,paused,play,render,restart,resume,reverse,reversed,seek,startTime,time,timeScale,totalDuration,totalTime"><title>com.greensock.core.Animation</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'Animation - GreenSock JavaScript Documentation';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">GreenSock JavaScript API Docs</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?com/greensock/core/Animation.html&amp;com/greensock/core/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">Animation</td><td class="titleTableSubNav" id="subNav" align="right"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Animation"); titleBar_setSubNav(false,true,false,false,false,false,false,false,true,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">com.greensock.core</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  Animation</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">Animation  <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> Object</td></tr><tr><td class="classHeaderTableLabel">Subclasses</td><td> <a href="../../../com/greensock/core/SimpleTimeline.html">SimpleTimeline</a>,  <a href="../../../com/greensock/TweenLite.html">TweenLite</a></td></tr></table><p></p><p></p><p></p>
+ Base class for all TweenLite, TweenMax, TimelineLite, and TimelineMax classes, providing
+ core methods/properties/functionality, but there is no reason to create an instance of this 
+ class directly. It can be very useful, however, as a data type in AS3/AS2 for methods/properties that 
+ can contain tweens or timelines. For example, maybe you build an <code>animateIn()</code> and 
+ <code>animateOut()</code> method for many of your own custom classes, and they each return an 
+ Animation instance which could be a tween or a timeline:
+ 
+ <div class="listing" version="3.0"><pre>
+function animateIn():Animation {
+    return TweenLite.to(this, 1, {scaleX:1, scaleY:1, autoAlpha:1});
+}
+ 
+function animateOut():Animation {
+    var tl:TimelineLite = new TimelineLite();
+    tl.to(this, 1, {scaleX:0.5, scaleY:0.5});
+    tl.to(this, 0.5, {autoAlpha:0}, -0.25);
+    return tl;
+}
+
+var anim:Animation = animateIn();
+
+//now we can control the animation with the common methods:
+anim.pause();
+anim.play();
+anim.reverse();
+
+//or somewhere else, we could build a sequence like this:
+var tl:TimelineLite = new TimelineLite();
+tl.append( animateIn() );
+tl.append( animateOut(), 3);
+</pre></div>
+ 
+               <p>
+                  <b>Copyright 2008-2012, GreenSock. All rights reserved.</b> This work is subject to the terms in <a href="http://www.greensock.com/terms_of_use.html" target="">http://www.greensock.com/terms_of_use.html</a> or for <a href="http://www.greensock.com/club/" target="">Club GreenSock</a> members, the software agreement that was issued with the membership.</p>
+ 
+            <p></p><br/><hr></div><a name="propertySummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Properties</div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableProperty"><tr><th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#data" class="signatureLink">data</a> : *<div class="summaryTableDescription"> A place to store any data you want (initially populated with vars.data if it exists).</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#ticker" class="signatureLink">ticker</a> : Shape<div class="summaryTableDescription">[static] 
+		 The object that dispatches a "tick" event each time the engine updates, making it easy for 
+		 you to add your own listener(s) to run custom logic after each update (great for game developers).</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#timeline" class="signatureLink">timeline</a> : <a href="../../../com/greensock/core/SimpleTimeline.html">SimpleTimeline</a><div class="summaryTableDescription"> [Read-only] Parent timeline.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a href="#vars" class="signatureLink">vars</a> : Object<div class="summaryTableDescription"> The vars object passed into the constructor which stores configuration variables like onComplete, onUpdate, etc.</div></td><td class="summaryTableOwnerCol">Animation</td></tr></table></div><a name="methodSummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Methods </div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableMethod"><tr><th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#Animation()" class="signatureLink">Animation</a>(duration:Number = 0, vars:Object = null)</div><div class="summaryTableDescription">
+		 Constructor 
+		 
+		 </div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#delay()" class="signatureLink">delay</a>(value:Number):*</div><div class="summaryTableDescription"> 
+		 Gets or sets the animation's initial delay which is the length of time in seconds 
+		 (or frames for frames-based tweens) before the animation should begin.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#duration()" class="signatureLink">duration</a>(value:Number):*</div><div class="summaryTableDescription">
+		 Gets or sets the animation's duration, not including any repeats or repeatDelays 
+		 (which are only available in TweenMax and TimelineMax).</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#eventCallback()" class="signatureLink">eventCallback</a>(type:String, callback:Function = null, params:Array = null, scope:* = null):*</div><div class="summaryTableDescription">
+		 Gets or sets an event callback like "onComplete", "onUpdate", "onStart", "onReverseComplete"
+		 or "onRepeat" (onRepeat only applies to TweenMax or TimelineMax instances)
+		 along with any parameters that should be passed to that callback.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#invalidate()" class="signatureLink">invalidate</a>():*</div><div class="summaryTableDescription"> 
+		 Clears any initialization data (like starting/ending values in tweens) which can be useful if, for example, 
+		 you want to restart a tween without reverting to any previously recorded starting values.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#kill()" class="signatureLink">kill</a>(vars:Object = null, target:Object = null):*</div><div class="summaryTableDescription">
+		 Kills the animation entirely or in part depending on the parameters.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#pause()" class="signatureLink">pause</a>(atTime:* = null, suppressEvents:Boolean = true):*</div><div class="summaryTableDescription">
+		 Pauses the instance, optionally jumping to a specific time.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#paused()" class="signatureLink">paused</a>(value:Boolean = false):*</div><div class="summaryTableDescription"> 
+		 Gets or sets the animation's paused state which indicates whether or not the animation 
+		 is currently paused.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#play()" class="signatureLink">play</a>(from:* = null, suppressEvents:Boolean = true):*</div><div class="summaryTableDescription">
+		 Begins playing forward, optionally from a specific time (by default playback begins from
+		 wherever the playhead currently is).</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#restart()" class="signatureLink">restart</a>(includeDelay:Boolean = false, suppressEvents:Boolean = true):*</div><div class="summaryTableDescription">
+		 Restarts and begins playing forward from the beginning.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#resume()" class="signatureLink">resume</a>(from:* = null, suppressEvents:Boolean = true):*</div><div class="summaryTableDescription">
+		 Resumes playing without altering direction (forward or reversed), optionally jumping to a specific time first.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#reverse()" class="signatureLink">reverse</a>(from:* = null, suppressEvents:Boolean = true):*</div><div class="summaryTableDescription">
+		 Reverses playback so that all aspects of the animation are oriented backwards including, for example,
+		 a tween's ease.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#reversed()" class="signatureLink">reversed</a>(value:Boolean = false):*</div><div class="summaryTableDescription"> 
+		 Gets or sets the animation's reversed state which indicates whether or not the animation 
+		 should be played backwards.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#seek()" class="signatureLink">seek</a>(time:*, suppressEvents:Boolean = true):*</div><div class="summaryTableDescription">
+		 Jumps to a specific time without affecting whether or not the instance is paused or reversed.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#startTime()" class="signatureLink">startTime</a>(value:Number):*</div><div class="summaryTableDescription"> 
+		 Gets or sets the time at which the animation begins on its parent timeline (after any delay
+		 that was defined).</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#time()" class="signatureLink">time</a>(value:Number, suppressEvents:Boolean = false):*</div><div class="summaryTableDescription">
+		 Gets or sets the local position of the playhead (essentially the current time), 
+		 described in seconds (or frames for frames-based animations) which
+		 will never be less than 0 or greater than the animation's duration.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#timeScale()" class="signatureLink">timeScale</a>(value:Number):*</div><div class="summaryTableDescription"> 
+		 Factor that's used to scale time in the animation where 1 = normal speed (the default),
+		 0.5 = half speed, 2 = double speed, etc.</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#totalDuration()" class="signatureLink">totalDuration</a>(value:Number):*</div><div class="summaryTableDescription">
+		 Gets or sets the animation's total duration including 
+		 any repeats or repeatDelays (which are only available in TweenMax and TimelineMax).</div></td><td class="summaryTableOwnerCol">Animation</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#totalTime()" class="signatureLink">totalTime</a>(time:Number, suppressEvents:Boolean = false):*</div><div class="summaryTableDescription">
+		 Gets or sets the position of the playhead according to the totalDuration
+		 which includes any repeats and repeatDelays (only available 
+		 in TweenMax and TimelineMax).</div></td><td class="summaryTableOwnerCol">Animation</td></tr></table></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><div class="detailSectionHeader">Property Detail</div><a name="propertyDetail"></a><a name="data"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">data</td><td class="detailHeaderType">property</td></tr></table><div class="detailBody"><code>public var data:*</code><p></p><p></p><p> A place to store any data you want (initially populated with <code>vars.data</code> if it exists). </p></div><a name="propertyDetail"></a><a name="ticker"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">ticker</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>public static var ticker:Shape</code><p></p><p></p><p>
+		 The object that dispatches a <code>"tick"</code> event each time the engine updates, making it easy for 
+		 you to add your own listener(s) to run custom logic after each update (great for game developers).
+		 Add as many listeners as you want. The basic syntax is the same for all versions (AS2, AS3, and JavaScript):
+		 
+		 <p><b>Basic example (AS2, AS3, and JavaScript):</b></p><div class="listing" version="3.0"><pre>
+//add listener
+Animation.ticker.addEventListener("tick", myFunction);
+
+function myFunction(event) {
+    //executes on every tick after the core engine updates
+}
+
+//to remove the listener later...
+Animation.ticker.removeEventListener("tick", myFunction);
+</pre></div>
+		 
+		 <p>Due to differences in the core languages (and to maximize efficiency), the advanced syntax is slightly different
+		 for the AS3 version compared to AS2 and JavaScript. The parameters beyond the first 2 in the addEventListener() 
+		 method are outlined below:</p>
+		 
+		 <p><b>JavaScript and AS2</b></p>
+		 <p><code>addEventListener(type, callback, scope, useParam, priority)</code></p>
+		 <p>Parameters:
+		 <ol>
+		 		<li><b>type</b> <i>: String</i> - type of listener, should always be <code>"tick"</code></li>
+		 		<li><b>callback</b> <i>: Function</i> - the function to call when the event occurs</li>
+		 		<li><b>scope</b> <i>: Object</i> - binds the scope to a particular object (scope is basically what "<code>this</code>" refers to in your function). This can be very useful in JavaScript and AS2 because scope isn't generally maintained. </li>
+		 		<li><b>useParam</b> <i>: Boolean</i> - if <code>true</code>, an event object will be generated and fed to the callback each time the event occurs. The event is a generic object and has two properties: <code>type</code> (always <code>"tick"</code>) and <code>target</code> which refers to the ticker instance. The default for <code>useParam</code> is <code>false</code> because it improves performance.</li>
+		 		<li><b>priority</b> <i>: Integer</i> - influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.</li>
+		 </ol>
+		 </p>
+		 
+		 <p>In JavaScript, the Animation object/class is located at <code>com.greensock.core.Animation</code> - it is not added to the global namespace in order to avoid polluting it (developers rarely directly access the Animation class)</p>
+		 
+		 <p><b>Advanced example (JavaScript and AS2):</b></p><div class="listing" version="3.0"><pre>
+//add listener that requests an event object parameter, binds scope to the current scope (this), and sets priority to 1 so that it is called before any other listeners that had a priority lower than 1...
+Animation.ticker.addEventListener("tick", myFunction, this, true, 1);
+
+function myFunction(event) {
+    //executes on every tick after the core engine updates
+}
+
+//to remove the listener later...
+Animation.ticker.removeEventListener("tick", myFunction);
+</pre></div>
+		 
+		 <p><b>AS3</b></p>
+		 <p>The AS3 version uses the standard <code>EventDispatcher.addEventListener()</code> syntax which 
+		 basically allows you to define a priority and whether or not to use weak references (see Adobe's 
+		 docs for details).</p>
+		 
+		 <p><b>Advanced example [AS3 only]:</b></p><div class="listing" version="3.0"><pre>
+import flash.events.Event;
+
+//add listener with weak reference (standard syntax - notice the 5th parameter is true)
+Animation.ticker.addEventListener("tick", myFunction, false, 0, true);
+
+function myFunction(event:Event):void {
+    //executes on every tick after the core engine updates
+}
+
+//to remove the listener later...
+Animation.ticker.removeEventListener("tick", myFunction);
+</pre></div>
+		 </p></div><a name="propertyDetail"></a><a name="timeline"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">timeline</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>public var timeline:<a href="../../../com/greensock/core/SimpleTimeline.html">SimpleTimeline</a></code><p></p><p></p><p> [Read-only] Parent timeline. Every animation is placed onto a timeline (the root timeline by default) and can only have one parent. An instance cannot exist in multiple timelines at once. </p></div><a name="propertyDetail"></a><a name="vars"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">vars</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code>public var vars:Object</code><p></p><p></p><p> The <code>vars</code> object passed into the constructor which stores configuration variables like onComplete, onUpdate, etc. as well as tweening properties like alpha, x, y or whatever. </p></div><a name="constructorDetail"></a><div class="detailSectionHeader">Constructor Detail</div><a name="Animation()"></a><a name="Animation(Number,Object)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">Animation</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">Constructor</td></tr></table><div class="detailBody"><code>public function Animation(duration:Number = 0, vars:Object = null)</code><p></p><p>
+		 Constructor 
+		 
+		 </p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">duration</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; duration in seconds (or frames for frames-based tweens)
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">vars</span>:Object</code> (default = <code>null</code>)<code></code> &mdash; configuration variables (for example, <code>{x:100, y:0, alpha:0.5, onComplete:myFunction}</code>)
+		 </td></tr></table></div><a name="methodDetail"></a><div class="detailSectionHeader">Method Detail</div><a name="delay()"></a><a name="delay(Number)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">delay</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td></tr></table><div class="detailBody"><code> public function delay(value:Number):*</code><p></p><p></p><p> 
+		 Gets or sets the animation's initial delay which is the length of time in seconds 
+		 (or frames for frames-based tweens) before the animation should begin. 
+		 A tween's starting values are not recorded until after the delay has expired (except in 
+		 <code>from()</code> tweens which render immediately by default unless <code>immediateRender:false</code> 
+		 is set in the <code>vars</code> parameter). An animation's <code>delay</code> is unaffected
+		 by its <code>timeScale</code>, so if you were to change <code>timeScale</code> from 1 to 10, 
+		 for example, it wouldn't cause the delay to grow tenfold.
+		 
+		 <p>This method serves as both a getter and setter. Omitting the parameter returns the current 
+		 value (getter), whereas defining the parameter sets the value (setter) and returns the instance 
+		 itself for easier chaining, like <code>myAnimation.delay(2).timeScale(0.5).play(1);</code></p>
+		 
+		 <div class="listing" version="3.0"><pre>
+ var currentDelay = myAnimation.delay(); //gets current delay
+ myAnimation.delay(2); //sets delay
+</pre></div>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">value</span>:Number</code> (default = <code>NaN</code>)<code></code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 </td></tr></table></div><a name="duration()"></a><a name="duration(Number)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">duration</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function duration(value:Number):*</code><p></p><p></p><p>
+		 Gets or sets the animation's duration, <b>not</b> including any repeats or repeatDelays 
+		 (which are only available in TweenMax and TimelineMax). For example, if a TweenMax instance has 
+		 a <code>duration</code> of 2 and a <code>repeat</code> of 3, its <code>totalDuration</code> 
+		 would be 8 (one standard play plus 3 repeats equals 4 total cycles).
+		 
+		 <p>This method serves as both a getter and setter. Omitting the parameter returns the current 
+		 value (getter), whereas defining the parameter sets the value (setter) and returns the instance 
+		 itself for easier chaining, like <code>myAnimation.duration(2).delay(0.5).play(1);</code></p>
+		 
+		 <div class="listing" version="3.0"><pre>
+ var currentDuration = myAnimation.duration(); //gets current duration
+ myAnimation.duration(2); //sets duration
+</pre></div>
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">value</span>:Number</code> (default = <code>NaN</code>)<code></code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 
+		 </td></tr></table><p><span class="label">See also</span></p><div class="seeAlso"><a href="Animation.html#totalDuration()" target="">totalDuration()</a><br/><a href="Animation.html#timeScale()" target="">timeScale()</a></div></div><a name="eventCallback()"></a><a name="eventCallback(String,Function,Array,any)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">eventCallback</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function eventCallback(type:String, callback:Function = null, params:Array = null, scope:* = null):*</code><p></p><p></p><p>
+		 Gets or sets an event callback like <code>"onComplete", "onUpdate", "onStart", "onReverseComplete"</code>
+		 or <code>"onRepeat"</code> (<code>onRepeat</code> only applies to TweenMax or TimelineMax instances)
+		 along with any parameters that should be passed to that callback. This is the same as defining
+		 the values directly in the constructor's <code>vars</code> parameter initially, so the following 
+		 two lines are functionally equivalent:
+		 
+		 <div class="listing" version="3.0"><pre>
+//the following two lines produce IDENTICAL results:
+var myAnimation = new TweenLite(mc, 1, {x:100, onComplete:myFunction, onCompleteParams:["param1","param2"]});
+myAnimation.eventCallback("onComplete", myFunction, ["param1","param2"]);
+</pre></div>
+		 <p>The benefit of using <code>eventCallback()</code> is that it allows you to set callbacks 
+		 even after the animation instance has been created and it also allows you to inspect the
+		 callback references or even delete them on-the-fly (use <code>null</code> to delete the 
+		 event callback).</p>
+		 
+		 <div class="listing" version="3.0"><pre>
+//deletes the onUpdate
+myAnimation.eventCallback("onUpdate", null);
+</pre></div>
+		 
+		 <p><b>IMPORTANT:</b>Animation instances can only have one callback associated with each
+		 event type (one <code>onComplete</code>, one <code>onUpdate</code>, one <code>onStart</code>, etc.). 
+		 So setting a new value will overwrite the old one. All of the values populate the <code>vars</code>
+		 object too which was originally passed into the constructor (think of that like a storage place for 
+		 configuration data).</p>
+		 
+		 <p>This method serves as both a getter and setter. Omitting all but the first parameter returns 
+		 the current value (getter), whereas defining more than the first parameter sets the value (setter) 
+		 and returns the instance itself for easier chaining, like 
+		 <code>myAnimation.eventCallback("onComplete", completeHandler).eventCallback("onUpdate", updateHandler, ["param1","{self}"]).play(1);</code></p>
+		 
+		 <div class="listing" version="3.0"><pre>
+var currentOnComplete = myAnimation.eventCallback("onComplete"); //gets current onComplete
+myAnimation.eventCallback("onComplete", myFunction); //sets the onComplete
+</pre></div>
+		 
+		 <p><b>JavaScript and AS2 note:</b> - Due to the way JavaScript and AS2 don't 
+		 maintain scope (what "<code>this</code>" refers to, or the context) in function calls, 
+		 it can be useful to define the scope specifically. Therefore, the JavaScript and AS2 
+		 versions accept a 4th parameter to [optionally] define the <code>scope</code>, but it 
+		 is omitted in AS3.</p>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">type</span>:String</code> &mdash; The type of event callback, like <code>"onComplete", "onUpdate", "onStart"</code> or <code>"onRepeat"</code>. This is case-sensitive.
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">callback</span>:Function</code> (default = <code>null</code>)<code></code> &mdash; The function that should be called when the event occurs.
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">params</span>:Array</code> (default = <code>null</code>)<code></code> &mdash; An array of parameters to pass the callback. Use <code>"{self}"</code> to refer to the animation instance itself. Example: <code>["param1","{self}"]</code>
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">scope</span>:*</code> (default = <code>null</code>)<code></code> &mdash; The scope in which the callback should be called (basically, what "this" refers to in the function). NOTE: this parameter only pertains to the JavaScript and AS2 versions; it is omitted in AS3.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; Omitting the all but the first parameter returns the current value (getter), whereas defining more than the first parameter sets the callback (setter) and returns the instance itself for easier chaining.
+		 </td></tr></table></div><a name="invalidate()"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">invalidate</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function invalidate():*</code><p></p><p></p><p> 
+		 Clears any initialization data (like starting/ending values in tweens) which can be useful if, for example, 
+		 you want to restart a tween without reverting to any previously recorded starting values. When you <code>invalidate()</code> 
+		 an animation, it will be re-initialized the next time it renders and its <code>vars</code> object will be re-parsed. 
+		 The timing of the animation (duration, startTime, delay) will not be affected.
+		 
+		 <p>Another example would be if you have a <code>TweenMax(mc, 1, {x:100, y:100})</code> that ran when mc.x and mc.y 
+		 were initially at 0, but now mc.x and mc.y are 200 and you want them tween to 100 again, you could simply 
+		 <code>invalidate()</code> the tween and <code>restart()</code> it. Without invalidating first, restarting it 
+		 would cause the values jump back to 0 immediately (where they started when the tween originally began). 
+		 When you invalidate a TimelineLite/TimelineMax, it automatically invalidates all of its children.</p>
+		 </p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; self (makes chaining easier)
+		 </td></tr></table></div><a name="kill()"></a><a name="kill(Object,Object)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">kill</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function kill(vars:Object = null, target:Object = null):*</code><p></p><p></p><p>
+		 Kills the animation entirely or in part depending on the parameters. Simply calling <code>kill()</code>
+		 (omitting the parameters) will immediately stop the animation and release it for garbage collection. 
+		 To kill only particular tweening properties of the animation, use the first parameter which should
+		 be a generic object with enumerable properties corresponding to those that should be killed,
+		 like <code>{x:true, y:true}</code>. The second parameter allows you to define a target 
+		 (or array of targets) to affect. 
+		 
+		 <p>Note: the values assigned to each property of the <code>vars</code> parameter object don't 
+		 matter - the sole purpose of the object is for iteration over the named properties. In other 
+		 words, <code>{x:true, y:true}</code> would produce the same results as <code>{x:false, y:false}</code>.</p>
+		 
+		 <div class="listing" version="3.0"><pre>
+ //kill the entire animation:
+ myAnimation.kill();
+ 
+ //kill only the "x" and "y" properties of the animation (all targets):
+ myAnimation.kill({x:true, y:true});
+ 
+ //kill all parts of the animation related to the target "myObject" (if the tween has multiple targets, the others will not be affected):
+ myAnimation.kill(null, myObject);
+ 
+ //kill only the "x" and "y" properties of animations of the target "myObject":
+ myAnimation.kill({x:true, y:true}, myObject);
+  
+ //kill only the "alpha" properties of animations of the targets "myObject1" and "myObject2":
+ myAnimation.kill({alpha:true}, [myObject1, myObject2]);
+         </pre></div>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">vars</span>:Object</code> (default = <code>null</code>)<code></code> &mdash; To kill only specific properties, use a generic object containing enumerable properties corresponding to the ones that should be killed, like <code>{x:true, y:true}</code>. The values assigned to each property of the object don't matter - the sole purpose of the object is for iteration over the named properties (in this case, <code>x</code> and <code>y</code>). If no object (or <code>null</code>) is defined, <b>ALL</b> properties will be killed.
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">target</span>:Object</code> (default = <code>null</code>)<code></code> &mdash; To kill only aspects of the animation related to a particular target (or targets), reference it here. For example, to kill only parts having to do with <code>myObject</code>, do <code>kill(null, myObject)</code> or to kill only parts having to do with <code>myObject1</code> and <code>myObject2</code>, do <code>kill(null, [myObject1, myObject2])</code>. If no target is defined, <b>ALL</b> targets will be affected. 
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; self (makes chaining easier)
+		 </td></tr></table></div><a name="pause()"></a><a name="pause(any,Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">pause</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function pause(atTime:* = null, suppressEvents:Boolean = true):*</code><p></p><p></p><p>
+		 Pauses the instance, optionally jumping to a specific time. 
+		 
+		 <p>If you define a time to jump to (the first parameter, which could also be a label for TimelineLite
+		 or TimelineMax instances), the playhead moves there immediately and if there are any 
+		 events/callbacks inbetween where the playhead was and the new time, they will not be triggered 
+		 because by default <code>suppressEvents</code> (the 2nd parameter) is <code>true</code>. 
+		 Think of it like picking the needle up on a record player and moving it to a new position 
+		 before placing it back on the record. If, however, you do not want the events/callbacks suppressed 
+		 during that initial move, simply set the <code>suppressEvents</code> parameter to <code>false</code>.</p>
+		 
+		 <div class="listing" version="3.0"><pre>
+ //pauses wherever the playhead currently is:
+ myAnimation.pause();
+ 
+ //jumps to exactly 2-seconds into the animation and then pauses:
+ myAnimation.pause(2);
+ 
+ //jumps to exactly 2-seconds into the animation and pauses but doesn't suppress events during the initial move:
+ myAnimation.pause(2, false);
+ </pre></div>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">atTime</span>:*</code> (default = <code>null</code>)<code></code> &mdash; The time (or label for TimelineLite/TimelineMax instances) that the instance should jump to before pausing (if none is defined, it will pause wherever the playhead is currently located).
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">suppressEvents</span>:Boolean</code> (default = <code>true</code>)<code></code> &mdash; If <code>true</code> (the default), no events or callbacks will be triggered when the playhead moves to the new position defined in the <code>atTime</code> parameter.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; self (makes chaining easier)
+		 </td></tr></table></div><a name="paused()"></a><a name="paused(Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">paused</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function paused(value:Boolean = false):*</code><p></p><p></p><p> 
+		 Gets or sets the animation's paused state which indicates whether or not the animation 
+		 is currently paused. This does not take into account anscestor timelines. So for example, 
+		 a tween that is not paused might appear paused if its parent timeline (or any ancenstor 
+		 timeline) is paused. Pausing an animation doesn't remove it from its parent timeline, 
+		 but it does cause it not to be factored into the parent timeline's 
+		 <code>duration/totalDuration</code>. When an animation completes, it does 
+		 <b>NOT</b> alter its paused state.
+		 
+		 <p>In most cases, it is easiest to use the <code>pause()</code> method to pause
+		 the animation, and <code>resume()</code> to resume it. But to check the current
+		 state, you must use the <code>paused()</code> method. It can also be useful for 
+		 toggling like <code>myAnimation.paused( !myAnimation.paused() );</code></p>
+		 
+		 <p>You can set the <code>paused</code> state initially by passing <code>paused:true</code>
+		 in the <code>vars</code> parameter.</p>
+		 
+		 <p>This method serves as both a getter and setter. Omitting the parameter returns the current 
+		 value (getter), whereas defining the parameter sets the value (setter) and returns the instance 
+		 itself for easier chaining, like <code>myAnimation.paused(true).delay(2).timeScale(0.5);</code></p>
+		 
+		 <div class="listing" version="3.0"><pre>
+ var paused = myAnimation.paused(); //gets current paused state
+ myAnimation.paused( true ); //sets paused state to true (just like pause())
+ myAnimation.paused( !myAnimation.paused() ); //toggles the paused state
+         </pre></div>
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">value</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 
+		 </td></tr></table><p><span class="label">See also</span></p><div class="seeAlso"><a href="Animation.html#pause()" target="">pause()</a><br/><a href="Animation.html#resume()" target="">resume()</a><br/><a href="Animation.html#play()" target="">play()</a></div></div><a name="play()"></a><a name="play(any,Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">play</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function play(from:* = null, suppressEvents:Boolean = true):*</code><p></p><p></p><p>
+		 Begins playing forward, optionally from a specific time (by default playback begins from
+		 wherever the playhead currently is). This also ensures that the instance is neither paused 
+		 nor reversed.
+		 
+		 <p>If you define a "from" time (the first parameter, which could also be a label for TimelineLite
+		 or TimelineMax instances), the playhead moves there immediately and if there are any 
+		 events/callbacks inbetween where the playhead was and the new time, they will not be triggered 
+		 because by default <code>suppressEvents</code> (the 2nd parameter) is <code>true</code>. 
+		 Think of it like picking the needle up on a record player and moving it to a new position 
+		 before placing it back on the record. If, however, you do not want the events/callbacks suppressed 
+		 during that initial move, simply set the <code>suppressEvents</code> parameter to <code>false</code>.</p>
+		 
+		 <div class="listing" version="3.0"><pre>
+//begins playing from wherever the playhead currently is:
+myAnimation.play();
+
+//begins playing from exactly 2-seconds into the animation:
+myAnimation.play(2);
+
+//begins playing from exactly 2-seconds into the animation but doesn't suppress events during the initial move:
+myAnimation.play(2, false);
+</pre></div>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">from</span>:*</code> (default = <code>null</code>)<code></code> &mdash; The time (or label for TimelineLite/TimelineMax instances) from which the animation should begin playing (if none is defined, it will begin playing from wherever the playhead currently is).
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">suppressEvents</span>:Boolean</code> (default = <code>true</code>)<code></code> &mdash; If <code>true</code> (the default), no events or callbacks will be triggered when the playhead moves to the new position defined in the <code>from</code> parameter.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; self (makes chaining easier)
+		 </td></tr></table></div><a name="restart()"></a><a name="restart(Boolean,Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">restart</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function restart(includeDelay:Boolean = false, suppressEvents:Boolean = true):*</code><p></p><p></p><p>
+		 Restarts and begins playing forward from the beginning.
+		 
+		 <div class="listing" version="3.0"><pre>
+ //restarts, not including any delay that was defined
+ myAnimation.restart();
+ 
+ //restarts, including any delay, and doesn't suppress events during the initial move back to time:0
+ myAnimation.restart(true, false);
+         </pre></div>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">includeDelay</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Determines whether or not the delay (if any) is honored when restarting. For example, if a tween has a delay of 1 second, like <code>new TweenLite(mc, 2, {x:100, delay:1});</code> and then later <code>restart()</code> is called, it will begin immediately, but <code>restart(true)</code> will cause the delay to be honored so that it won't begin for another 1 second.
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">suppressEvents</span>:Boolean</code> (default = <code>true</code>)<code></code> &mdash; If <code>true</code> (the default), no events or callbacks will be triggered when the playhead moves to the new position defined in the <code>time</code> parameter. 
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; self (makes chaining easier)
+		 </td></tr></table></div><a name="resume()"></a><a name="resume(any,Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">resume</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function resume(from:* = null, suppressEvents:Boolean = true):*</code><p></p><p></p><p>
+		 Resumes playing without altering direction (forward or reversed), optionally jumping to a specific time first. 
+		 
+		 <p>If you define a time to jump to (the first parameter, which could also be a label for TimelineLite
+		 or TimelineMax instances), the playhead moves there immediately and if there are any 
+		 events/callbacks inbetween where the playhead was and the new time, they will not be triggered 
+		 because by default <code>suppressEvents</code> (the 2nd parameter) is <code>true</code>. 
+		 Think of it like picking the needle up on a record player and moving it to a new position 
+		 before placing it back on the record. If, however, you do not want the events/callbacks suppressed 
+		 during that initial move, simply set the <code>suppressEvents</code> parameter to <code>false</code>.</p>
+		 
+		 <div class="listing" version="3.0"><pre>
+ //resumes from wherever the playhead currently is:
+ myAnimation.resume();
+ 
+ //jumps to exactly 2-seconds into the animation and then resumes playback:
+ myAnimation.resume(2);
+ 
+ //jumps to exactly 2-seconds into the animation and resumes playbck but doesn't suppress events during the initial move:
+ myAnimation.resume(2, false);
+         </pre></div>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">from</span>:*</code> (default = <code>null</code>)<code></code> &mdash; The time (or label for TimelineLite/TimelineMax instances) that the instance should jump to before resuming playback (if none is defined, it will resume wherever the playhead is currently located).
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">suppressEvents</span>:Boolean</code> (default = <code>true</code>)<code></code> &mdash; If <code>true</code> (the default), no events or callbacks will be triggered when the playhead moves to the new position defined in the <code>from</code> parameter.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; self (makes chaining easier)
+		 </td></tr></table></div><a name="reverse()"></a><a name="reverse(any,Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">reverse</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function reverse(from:* = null, suppressEvents:Boolean = true):*</code><p></p><p></p><p>
+		 Reverses playback so that all aspects of the animation are oriented backwards including, for example,
+		 a tween's ease. This will cause the instance's <code>time</code> and <code>totalTime</code> to move 
+		 back towards zero as well. You can optionally define a specific time to jump to before reversing
+		 (by default it begins playing in reverse from wherever the playhead currently is). 
+		 Calling <code>reverse()</code> also ensures that the instance is neither paused nor reversed.
+		 
+		 <p>To jump to the very end of the animation and play in reverse from there, use 0 as the 
+		 "from" parameter, like <code>reverse(0)</code>.</p>
+		 
+		 <p>To check whether or not the instance is reversed, use the <code>reversed()</code> method, like
+		 <code>if (myAnimation.reversed()) {...}</code></p>
+		 
+		 <p>If you define a "from" time (the first parameter, which could also be a label for TimelineLite
+		 or TimelineMax instances), the playhead moves there immediately and if there are any 
+		 events/callbacks inbetween where the playhead was and the new time, they will not be triggered 
+		 because by default <code>suppressEvents</code> (the 2nd parameter) is <code>true</code>. 
+		 Think of it like picking the needle up on a record player and moving it to a new position 
+		 before placing it back on the record. If, however, you do not want the events/callbacks suppressed 
+		 during that initial move, simply set the <code>suppressEvents</code> parameter to <code>false</code>.</p>
+		 
+		 <div class="listing" version="3.0"><pre>
+ //reverses playback from wherever the playhead currently is:
+ myAnimation.reverse();
+ 
+ //reverses playback from exactly 2 seconds into the animation:
+ myAnimation.reverse(2);
+ 
+ //reverses playback from exactly 2 seconds into the animation but doesn't suppress events during the initial move:
+ myAnimation.reverse(2, false);
+ 
+ //reverses playback from the very END of the animation:
+ myAnimation.reverse(0);
+  
+ //reverses playback starting from exactly 1 second before the end of the animation:
+ myAnimation.reverse(-1);
+ 
+ //flips the orientation (if it's forward, it will go backward, if it is backward, it will go forward):
+ if (myAnimation.reversed()) {
+     myAnimation.play();
+ } else {
+     myAnimation.reverse();
+ }
+ 
+ //flips the orientation using the reversed() method instead (shorter version of the code above):
+ myAnimation.reversed( !myAnimation.reversed() );
+         </pre></div>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">from</span>:*</code> (default = <code>null</code>)<code></code> &mdash; The time (or label for TimelineLite/TimelineMax instances) from which the animation should begin playing in reverse (if none is defined, it will begin playing from wherever the playhead currently is). To begin at the very end of the animation, use <code>0</code>. Negative numbers are relative to the end of the animation, so -1 would be 1 second from the end.
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">suppressEvents</span>:Boolean</code> (default = <code>true</code>)<code></code> &mdash; If <code>true</code> (the default), no events or callbacks will be triggered when the playhead moves to the new position defined in the <code>from</code> parameter.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; self (makes chaining easier)
+		 </td></tr></table></div><a name="reversed()"></a><a name="reversed(Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">reversed</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function reversed(value:Boolean = false):*</code><p></p><p></p><p> 
+		 Gets or sets the animation's reversed state which indicates whether or not the animation 
+		 should be played backwards. This value is not affected by <code>yoyo</code> repeats 
+		 (TweenMax and TimelineMax only) and it does not take into account the reversed state of 
+		 anscestor timelines. So for example, a tween that is not reversed might appear reversed 
+		 if its parent timeline (or any ancenstor timeline) is reversed. 
+		 
+		 <p>This method serves as both a getter and setter. Omitting the parameter returns the current 
+		 value (getter), whereas defining the parameter sets the value (setter) and returns the instance 
+		 itself for easier chaining.</p>
+		 
+		 <div class="listing" version="3.0"><pre>
+var rev = myAnimation.reversed(); //gets current orientation
+myAnimation.reversed( true ); //sets the orientation to reversed
+myAnimation.reversed( !myAnimation.reversed() ); //toggles the orientation
+</pre></div>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">value</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 
+		 </td></tr></table><p><span class="label">See also</span></p><div class="seeAlso"><a href="Animation.html#reverse()" target="">reverse()</a><br/><a href="Animation.html#play()" target="">play()</a></div></div><a name="seek()"></a><a name="seek(any,Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">seek</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function seek(time:*, suppressEvents:Boolean = true):*</code><p></p><p></p><p>
+		 Jumps to a specific time without affecting whether or not the instance is paused or reversed.
+		 
+		 <p>If there are any events/callbacks inbetween where the playhead was and the new time, 
+		 they will not be triggered because by default <code>suppressEvents</code> (the 2nd parameter) 
+		 is <code>true</code>. Think of it like picking the needle up on a record player and moving it 
+		 to a new position before placing it back on the record. If, however, you do not want the 
+		 events/callbacks suppressed during that initial move, simply set the <code>suppressEvents</code> 
+		 parameter to <code>false</code>.</p>
+		 
+		 <div class="listing" version="3.0"><pre>
+ //jumps to exactly 2 seconds
+ myAnimation.seek(2);
+ 
+ //jumps to exactly 2 seconds but doesn't suppress events during the initial move:
+ myAnimation.seek(2, false);
+         </pre></div>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">time</span>:*</code> &mdash; The time (or label for TimelineLite/TimelineMax instances) to go to.
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">suppressEvents</span>:Boolean</code> (default = <code>true</code>)<code></code> &mdash; If <code>true</code> (the default), no events or callbacks will be triggered when the playhead moves to the new position defined in the <code>time</code> parameter.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; self (makes chaining easier)
+		 </td></tr></table></div><a name="startTime()"></a><a name="startTime(Number)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">startTime</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function startTime(value:Number):*</code><p></p><p></p><p> 
+		 Gets or sets the time at which the animation begins on its parent timeline (after any <code>delay</code>
+		 that was defined). For example, if a tween starts at exactly 3 seconds into the timeline 
+		 on which it is placed, the tween's <code>startTime</code> would be 3. 
+		 
+		 <p>The <code>startTime</code> may be automatically adjusted to make the timing appear
+		 seamless if the parent timeline's <code>smoothChildTiming</code> property is <code>true</code> 
+		 and a timing-dependent change is made on-the-fly, like <code>reverse()</code> is called or 
+		 <code>timeScale()</code> is changed, etc. See the documentation for the <code>smoothChildTiming</code> 
+		 property of timelines for more details.</p>
+		 
+		 <p>This method serves as both a getter and setter. Omitting the parameter returns the current 
+		 value (getter), whereas defining the parameter sets the value (setter) and returns the instance 
+		 itself for easier chaining.</p>
+		 
+		 <div class="listing" version="3.0"><pre>
+var start = myAnimation.startTime(); //gets current start time
+myAnimation.startTime(2); //sets the start time
+</pre></div>
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">value</span>:Number</code> (default = <code>NaN</code>)<code></code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 </td></tr></table></div><a name="time()"></a><a name="time(Number,Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">time</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function time(value:Number, suppressEvents:Boolean = false):*</code><p></p><p></p><p>
+		 Gets or sets the local position of the playhead (essentially the current time), 
+		 described in seconds (or frames for frames-based animations) which
+		 will never be less than 0 or greater than the animation's <code>duration</code>. 
+		 For example, if the <code>duration</code> is 10 and you were to watch the 
+		 <code>time</code> during the course of the animation, you'd see it go from 0
+		 at the beginning to 10 at the end. Setting <code>time</code> to 5 would cause the 
+		 animation to jump to its midway point (because it's half of the duration). 
+		 
+		 <p>This method serves as both a getter and setter. Omitting the parameter returns the current 
+		 value (getter), whereas defining the parameter sets the value (setter) and returns the instance 
+		 itself for easier chaining.</p>
+		 
+		 <div class="listing" version="3.0"><pre>
+var currentTime = myAnimation.time(); //gets current time
+myAnimation.time(2); //sets time, jumping to new value just like seek().
+</pre></div>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">value</span>:Number</code> (default = <code>NaN</code>)<code></code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining. Negative values will be interpreted from the <b>END</b> of the animation.
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">suppressEvents</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; If <code>true</code>, no events or callbacks will be triggered when the playhead moves to the new position defined in the <code>value</code> parameter.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 
+		 </td></tr></table><p><span class="label">See also</span></p><div class="seeAlso"><a href="Animation.html#seek()" target="">seek()</a><br/><a href="Animation.html#play()" target="">play()</a><br/><a href="Animation.html#reverse()" target="">reverse()</a><br/><a href="Animation.html#pause()" target="">pause()</a><br/><a href="Animation.html#totalTime()" target="">totalTime()</a></div></div><a name="timeScale()"></a><a name="timeScale(Number)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">timeScale</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function timeScale(value:Number):*</code><p></p><p></p><p> 
+		 Factor that's used to scale time in the animation where 1 = normal speed (the default),
+		 0.5 = half speed, 2 = double speed, etc. For example, if an animation's <code>duration</code> 
+		 is 2 but its <code>timeScale</code> is 0.5, it will take 4 seconds to finish. If you nest that 
+		 animation in a timeline whose <code>timeScale</code> is 0.5 as well, it would take 8 seconds 
+		 to finish. You can even tween the <code>timeScale</code> to gradually slow it down or speed it up.
+		 
+		 <p>This method serves as both a getter and setter. Omitting the parameter returns the current 
+		 value (getter), whereas defining the parameter sets the value (setter) and returns the instance 
+		 itself for easier chaining, like <code>myAnimation.timeScale(2).play(1);</code></p>
+		 
+		 <div class="listing" version="3.0"><pre>
+var currentTimeScale = myAnimation.timeScale(); //gets current timeScale
+myAnimation.timeScale( 0.5 ); //sets timeScale to half-speed
+</pre></div>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">value</span>:Number</code> (default = <code>NaN</code>)<code></code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 
+		 </td></tr></table><p><span class="label">See also</span></p><div class="seeAlso"><a href="Animation.html#duration()" target="">duration()</a></div></div><a name="totalDuration()"></a><a name="totalDuration(Number)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">totalDuration</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function totalDuration(value:Number):*</code><p></p><p></p><p>
+		 Gets or sets the animation's <b>total</b> duration including 
+		 any repeats or repeatDelays (which are only available in TweenMax and TimelineMax). 
+		 For example, if a TweenMax instance has a <code>duration</code> of 2 and a repeat of 3, 
+		 its <code>totalDuration</code> would be 8 (one standard play plus 3 repeats equals 4 total cycles).
+		 
+		 <p>This method serves as both a getter and setter. Omitting the parameter returns the current 
+		 value (getter), whereas defining the parameter sets the value (setter) and returns the instance 
+		 itself for easier chaining, like <code>myAnimation.totalDuration(2).delay(0.5).play(1);</code></p>
+		 
+		 <div class="listing" version="3.0"><pre>
+ var ctd = myAnimation.totalDuration(); //gets current total duration
+ myAnimation.totalDuration(2); //sets total duration
+         </pre></div>
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">value</span>:Number</code> (default = <code>NaN</code>)<code></code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 
+		 </td></tr></table><p><span class="label">See also</span></p><div class="seeAlso"><a href="Animation.html#duration()" target="">duration()</a><br/><a href="Animation.html#timeScale()" target="">timeScale()</a></div></div><a name="totalTime()"></a><a name="totalTime(Number,Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">totalTime</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public function totalTime(time:Number, suppressEvents:Boolean = false):*</code><p></p><p></p><p>
+		 Gets or sets the position of the playhead according to the <code>totalDuration</code>
+		 which <b>includes any repeats and repeatDelays</b> (only available 
+		 in TweenMax and TimelineMax). For example, if a TweenMax instance has a 
+		 <code>duration</code> of 2 and a <code>repeat</code> of 3, <code>totalTime</code> 
+		 will go from 0 to 8 during the course of the tween (plays once then repeats 3 times, 
+		 making 4 total cycles) whereas <code>time</code> will go from 0 to 2 a total of 4 times. 
+		 If you added a <code>repeatDelay</code> of 1, that would make the <code>totalTime</code>
+		 go from 0 to 11 over the course of the tween. 
+		 
+		 <p>This method serves as both a getter and setter. Omitting the parameter returns the current 
+		 value (getter), whereas defining the parameter sets the value (setter) and returns the instance 
+		 itself for easier chaining.</p>
+		 
+		 <p><code>totalTime</code> will never exceed the <code>totalDuration</code>, nor will it be 
+		 less than 0 (values will be clipped appropriately). Negative values will be interpreted from 
+		 the <b>END</b> of the animation. For example, -2 would be 2 seconds before the end. If the 
+		 animation's <code>totalDuration</code> is 6 and you do <code>myAnimation.totalTime(-2)</code>, 
+		 it will jump to a <code>totalTime</code> of 4.</p>
+		 
+		 <div class="listing" version="3.0"><pre>
+ var tt = myAnimation.totalTime(); //gets total time
+ myAnimation.totalTime(2); //sets total time, jumping to new value just like seek().
+         </pre></div>
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">time</span>:Number</code> (default = <code>NaN</code>)<code></code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining. Negative values will be interpreted from the <b>END</b> of the animation.
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">suppressEvents</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; If <code>true</code>, no events or callbacks will be triggered when the playhead moves to the new position defined in the <code>time</code> parameter.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>*</code> &mdash; Omitting the parameter returns the current value (getter), whereas defining the parameter sets the value (setter) and returns the instance itself for easier chaining.
+		 
+		 </td></tr></table><p><span class="label">See also</span></p><div class="seeAlso"><a href="Animation.html#time()" target="">time()</a><br/><a href="Animation.html#seek()" target="">seek()</a><br/><a href="Animation.html#play()" target="">play()</a><br/><a href="Animation.html#reverse()" target="">reverse()</a><br/><a href="Animation.html#pause()" target="">pause()</a></div></div><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Tue Dec 11 2012, 12:05 PM -06:00  </center></div></body></html><!--<br/>Tue Dec 11 2012, 12:05 PM -06:00  -->

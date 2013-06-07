@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <meta name="author" content="Márton Czebe" />
+        
+		<title>Carnation Bouncing Ball Demo</title>
+		<script type="text/javascript" src="../src/uncompressed/plugins/CSSPlugin.js"></script>
+		<script type="text/javascript" src="../src/uncompressed/easing/EasePack.js"></script>
+		<script type="text/javascript" src="../src/uncompressed/TimelineLite.js"></script>
+		<script type="text/javascript" src="../src/uncompressed/TweenLite.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<style type="text/css">
+			html, body { overflow:hidden; }
+			body {
+				background:url(img/carnation_background_pattern_1.gif);
+				margin:0px;
+				padding:0px;
+				color:#CCCCCC;
+				font-family:Verdana, Geneva, sans-serif;
+			}
+			.playground {
+				position:absolute;
+				height:400px;
+				width:500px;
+				margin:-200px 0 0 -250px;
+				border-bottom: solid 3px #222;
+				top:50%;left:50%;
+			}
+			#ball {
+				display:block;
+				position:absolute;
+				width:50px;
+				height:50px;
+				background:#480e6e;
+				-moz-border-radius: 50%;
+				-webkit-border-radius: 50%;
+				border-radius: 50%;	
+			}
+		</style>
+	</head>
+	<body>
+		<div class="playground">
+			<span id="ball"></span>
+		</div>
+		<script language="javascript" type="text/javascript">
+		(function() {
+			var ball = document.getElementById('ball'),
+				colors = ["#480e6e","#fc4239","#ffd400","#00c4df"];
+			function play() {
+				ball.style.marginLeft = "0px";
+				ball.style.marginTop = "350px";
+				var tl = new TimelineLite({delay:0.5});
+				tl.to(ball, 0.5, {css:{marginTop:0}})
+				  .to(ball, 1.25, {css:{marginTop:350}, ease:Bounce.easeOut})
+				  .to(ball, 2.5, {css:{marginLeft:"+=450px"}}, -1.75)
+				  .to(ball, 1, {css:{marginLeft:0, backgroundColor:colors[ Math.floor(Math.random() * colors.length) ]}}, 1)
+				  .call(play);
+			}
+			play();
+		})();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="BezierPlugin,com.greensock.plugins.BezierPlugin,bezierThrough,cubicToQuadratic,getRule,quadraticToCubic"><title>com.greensock.plugins.BezierPlugin</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'BezierPlugin - GreenSock JavaScript Documentation';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">GreenSock JavaScript API Docs</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?com/greensock/plugins/BezierPlugin.html&amp;com/greensock/plugins/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">BezierPlugin</td><td class="titleTableSubNav" id="subNav" align="right"><a href="#methodSummary">Methods</a></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BezierPlugin"); titleBar_setSubNav(false,false,false,false,false,false,false,false,true,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">com.greensock.plugins</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  BezierPlugin</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">BezierPlugin  <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> <a href="../../../com/greensock/plugins/TweenPlugin.html">TweenPlugin</a> <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> Object</td></tr></table><p></p><p></p><p></p>
+ Animate virtually any property (or properties) along a Bezier (curved) path which you define
+ as an array of points/values that can be interpreted 4 different ways (described as the Bezier's "type", like <code>type:"quadratic"</code>):
+ 
+ <ul>
+ 		               <li>
+                     <code>"thru"</code> (the default) - the plugin figures out how to draw the Bezier naturally through
+ 				the supplied values using a proprietary algorithm. The values you provide in the array are essentially
+ 				treated as anchors on the Bezier and the plugin calculates the control points. The target's current/starting
+ 				values are used as the initial anchor. You can define a	<code>curviness</code> special property that 
+ 				allows you to adjust the tension on the Bezier where 0 has no curviness (straight lines), 1 is normal 
+ 				curviness, 2 is twice the normal curviness, etc. Since "thru" is the default Bezier type, you don't 
+ 				need to define a <code>type</code> at all if this is the one you want.</li>
+ 
+ 		               <li>
+                     <code>"soft"</code> - the values that you provide in the array act almost like magnets that attract the 
+ 				curve towards them, but the Bezier doesn't typically travel through them. They are treated 
+ 				as control points on a Quadratic Bezier and the plugin creates the necessary intermediate anchors.
+ 				The target's current/starting values are used as the initial anchor.</li>
+ 
+ 		               <li>
+                     <code>"quadratic"</code> - allows you to define standard Quadratic Bezier data (Quadratic Beziers have
+ 				1 control point between each anchor). The array should start with the first anchor, then control point, 
+ 				then anchor, control point, etc. for as many iterations as you want, but obviously make sure that it 
+ 				starts and ends with anchors.</li>
+ 
+ 		               <li>
+                     <code>"cubic"</code> - allows you to define standard Cubic Bezier data (Cubic Beziers have
+ 				2 control points between each anchor). The array should start with the first anchor, then 2 control points, 
+ 				then anchor, 2 control points, anchor, etc. for as many iterations as you want, but obviously make sure that it 
+ 				starts and ends with anchors.</li>
+               </ul>
+ 
+               <p>While it is most common to use <code>x</code> and <code>y</code> (or <code>left</code> and <code>top</code>) properties for 
+ Bezier tweens, you can use any properties (even ones that are function-based getters/setters). </p>
+ 
+               <p>Inside the <code>bezier</code> object, you must define at least a <code>values</code> property, and there are 
+ several other optional special properties that the BezierPlugin will recognize. Here is a list of them all:</p>
+ 
+               <ul>
+ 		               <li>
+                     <b>values</b> : Array <i>[REQUIRED]</i> - the array of your Bezier values as generic objects.
+ 				Each object in the array should have matching property names (like "x" and "y"). For example, the array might look like:
+ 				<code>[{x:100, y:250}, {x:300, y:0}, {x:500, y:400}]</code>
+                  </li>
+ 
+ 		               <li>
+                     <b>type</b> : String (default:<code>"thru"</code>) - Either <code>"thru", "soft", "quadratic",</code>
+ 				or <code>"cubic"</code> as described above, indicating how the <code>values</code> should be interpreted.</li>
+ 
+ 		               <li>
+                     <b>timeResolution</b> : Number (default:6) - due to the nature of Beziers, plotting the progression
+ 				of an object on the path over time can make it appear to speed up or slow down based on the placement
+ 				of the control points and the length of each successive segment on the path, so BezierPlugin implements
+ 				a technique that reduces or eliminates that variance, but it involves breaking the segments down into 
+ 				a certain number of pieces which is what <code>timeResolution</code> controls. The greater the number,
+ 				the more accurate the time remapping but there is a processing price to pay for greater precision.
+ 				The default value of 6 is typically fine, but if you notice slight pace changes on the path you can increase
+ 				the <code>timeResolution</code> value. Or, if you want to prioritize speed you could reduce the number. 
+ 				If you use a <code>timeResolution</code> value of 0, no length measurements will take place internally which
+ 				delivers maximum processing speed, but you may notice changes in speed during the animation.</li>
+ 
+ 		               <li>
+                     <b>curviness</b> : Number (default:1) (only applies to <code>type:"thru"</code>) - allows you to adjust the 
+ 				tension on the Bezier where 0 has no curviness (straight lines), 1 is normal curviness, 2 is twice 
+ 				the normal curviness, etc. Use any number, not just integers</li>
+ 
+ 		               <li>
+                     <b>autoRotate</b> : Boolean, Number, or Array (default:false) - to automatically rotate the target according
+ 				to its position on the Bezier path, you can use the <code>autoRotate</code> feature. If your Bezier is 
+ 				affecting the "x" and "y" (or "left" and "top") properties of your target and you don't need to offset the rotation by a certain 
+ 				amount more than normal, then you can simply set <code>autoRotate:true</code>. Or if you want to offset
+ 				the rotation by a certain amount (in degrees), you can define a number like <code>autoRotate:90</code> (adding
+ 				90 degrees in this example). Or for more advanced controls, you can define <code>autoRotate</code> as an array. 
+ 				In order to adjust a rotation property accurately, the plugin needs 5 pieces of information:
+ 				<ol>
+ 					                  <li> Position property 1 (typically <code>"x"</code> or <code>"left"</code>)</li>
+ 					                  <li> Position property 2 (typically <code>"y"</code> or <code>"top"</code>)</li>
+ 					                  <li> Rotational property (typically <code>"rotation"</code>)</li>
+ 					                  <li> Number of degrees (or radians) to add to the new rotation (optional - makes it easy to orient your target properly)</li>
+ 					                  <li> Boolean value indicating whether or not the rotational property should be defined in radians rather than degrees (default is <code>false</code> which results in degrees)</li>
+ 				                </ol>
+ 				The <code>autoRotate</code> property should be an Array containing these values, like 
+ 				<code>["x","y","rotation",90*Math.PI/180,true]</code>. And if you need to affect multiple rotational
+ 				properties (like in 3D tweens where the Bezier is going through x,y,z points which could affect rotationX, rotationY, and rotationZ), 
+ 				you can use an array of arrays, like 
+ 				<code>[["x","y","rotationZ",0,false], ["z","x","rotationY",0,false], ["z","y","rotationX",0,false]]</code>.
+ 				Note: 3D CSS animations aren't supported yet, but you if you're using a canvas-based framework that
+ 				recognizes 3D properties, it should certainly be compatible with BezierPlugin.</li>
+ 
+ 		               <li>
+                     <b>correlate</b> : String (default:"x,y,z,left,top,right,bottom,marginLeft,marginTop,marginRight,marginBottom,paddingLeft,paddingTop,paddingRight,paddingBottom") (only applies to <code>type:"thru"</code>) - 
+ 				a comma-delimited list of property names whose relative distances should be correlated when calculating 
+ 				the Bezier that travels through the points. Since x, y, z, left, top, etc. are all spacial, it is almost always good
+ 				to correlate them, but properties like scaleX, scaleY, etc. don't typically need to be correlated.
+ 				It is rarely necessary to alter the default <code>correlate</code> value, so there's typically no need to even define one
+ 				at all (let the plugin use its defaults).</li>
+               </ul>
+ 
+               <p>
+                  <b>IMPORTANT:</b> if you are trying to do a bezier tween of css-related properties, make sure you utilize the
+ CSSPlugin and put your bezier data <b>inside</b> the <code>css</code> object. BezierPlugin is not 
+ just for css-related properties - it can handle virtually any property of any object.</p>
+ 
+ 
+               <b>SYNTAX</b>
+               <div class="listing" version="3.0"><pre>
+//tween the "left" and "top" css properties through the supplied values (notice we put bezier inside the css object and we're passing the array directly to the bezier rather than creating an object with "values" because we're accepting the defaults)
+TweenMax.to(document.getElementById("myDiv"), 5, {css:{bezier:[{left:100, top:250}, {left:300, top:0}, {left:500, top:400}]}, ease:Power1.easeInOut});
+ 
+//if we want to customize things, like the curviness and setting autoRotate:true, we need to define the bezier as an object instead, and pass our array as the "values" property
+TweenMax.to(document.getElementById("myDiv"), 5, {css:{bezier:{curviness:1.25, values:[{x:100, y:250}, {x:300, y:0}, {x:500, y:400}], autoRotate:true}, backgroundColor:"#f00"}, ease:Power1.easeInOut});
+
+//let's define the type as "soft" instead of using the default "thru"
+TweenMax.to(document.getElementById("myDiv"), 5, {css:{bezier:{type:"soft", values:[{x:100, y:250}, {x:300, y:0}, {x:500, y:400}], autoRotate:true}}, ease:Power1.easeInOut});
+ 
+//now we'll do a cubic Bezier and make our target auto rotate but add 45 degrees to the rotation
+TweenMax.to(document.getElementById("myDiv"), 5, {css:{bezier:{type:"cubic", values:[{x:100, y:250}, {x:150, y:100}, {x:300, y:500}, {x:500, y:400}], autoRotate:["x","y","rotation",45,false]}}, ease:Power1.easeInOut});
+
+//NON-CSS, generic x/y property tween: animate obj through the points in the array (notice we're passing the array directly to the bezier rather than creating an object with "values" because we're accepting the defaults)
+TweenMax.to(obj, 5, {bezier:[{x:100, y:250}, {x:300, y:0}, {x:500, y:400}], ease:Power1.easeInOut});
+</pre></div>
+ 
+               <p>You can tap into BezierPlugin's Bezier drawing algorithm by passing its <code>bezierThrough()</code> method your
+ array of points/objects and it will spit back and object with all the necessary data, either in Cubic Bezier 
+ form or in Quadratic Bezier form so that you could, for example, draw the path using the canvas's drawing API.
+ It also has some useful static <code>cubicToQuadratic()</code> and <code>quadraticToCubic()</code> conversion methods.</p>
+ 
+               <p>
+                  <b>Copyright 2008-2012, GreenSock. All rights reserved.</b> This work is subject to the terms in <a href="http://www.greensock.com/terms_of_use.html" target="">http://www.greensock.com/terms_of_use.html</a> or for <a href="http://www.greensock.com/club/" target="">Club GreenSock</a> members, the software agreement that was issued with the membership.</p>
+ 
+            <p></p><br/><hr></div><a name="methodSummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Methods </div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableMethod"><tr><th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#bezierThrough()" class="signatureLink">bezierThrough</a>(values:Array, curviness:Number = 1, quadratic:Boolean = false, correlate:String = x,y,z, prepend:Object = null, calcDifs:Boolean = false):Object</div><div class="summaryTableDescription">[static] 
+		 Takes an array that contains objects (could be Points, could be generic objects with
+		 any number of properties but they should all match in terms of the names of properties like
+		 [{x:0, y:0, scaleX:0.5}, {x:100, y:-200, scaleX:1.2}, {x:300, y:20, scaleX:0.8}]) and plots Bezier 
+		 segments THROUGH those values and returns an array containing a generic object for each Bezier segment.</div></td><td class="summaryTableOwnerCol">BezierPlugin</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#cubicToQuadratic()" class="signatureLink">cubicToQuadratic</a>(a:Number, b:Number, c:Number, d:Number):Array</div><div class="summaryTableDescription">[static] 
+		 Using the fixed midpoint approach, we return an array of 4 quadratic Beziers that 
+		 closely approximates the cubic Bezier data provided.</div></td><td class="summaryTableOwnerCol">BezierPlugin</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#quadraticToCubic()" class="signatureLink">quadraticToCubic</a>(a:Number, b:Number, c:Number):Object</div><div class="summaryTableDescription">[static] 
+		 Returns the Cubic equivalent of a Quadratic Bezier.</div></td><td class="summaryTableOwnerCol">BezierPlugin</td></tr></table></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><a name="methodDetail"></a><div class="detailSectionHeader">Method Detail</div><a name="bezierThrough()"></a><a name="bezierThrough(Array,Number,Boolean,String,Object,Boolean)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">bezierThrough</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td></tr></table><div class="detailBody"><code> public static function bezierThrough(values:Array, curviness:Number = 1, quadratic:Boolean = false, correlate:String = x,y,z, prepend:Object = null, calcDifs:Boolean = false):Object</code><p></p><p></p><p>
+		 Takes an array that contains objects (could be Points, could be generic objects with
+		 any number of properties but they should all match in terms of the names of properties like
+		 <code>[{x:0, y:0, scaleX:0.5}, {x:100, y:-200, scaleX:1.2}, {x:300, y:20, scaleX:0.8}]</code>) and plots Bezier 
+		 segments THROUGH those values and returns an array containing a generic object for each Bezier segment. By default
+		 Cubic Beziers (which use 2 control points per segment) are used but you can optionally request Quadratic Beziers (1 control
+		 point per segment) instead using the <code>quadratic</code> parameter.
+		 
+		 <p>For Cubic Beziers (the default), each segment object will have <code>a, b, c,</code> and <code>d</code> properties:</p>
+		 
+		 <ul>
+		 		<li><b>a</b> - the starting anchor value of the Cubic Bezier segment. For example, 
+		 					<code>bezierThrough([{x:0, y:0, scaleX:0.5}, {x:100, y:-200, scaleX:1.2}, {x:300, y:20, scaleX:0.8}]);</code>
+		 					would return an object with "x", "y", and "scaleX" properties, each containing an array of objects, one per Bezier segment and you could
+		 					access the first Bezier's initial anchor values like:
+		 					<code>myReturnedObject.x[0].a, myReturnedObject.y[0].a</code>, and <code>myReturnedObject.scaleX[0].a</code></li>
+		 		<li><b>b</b> - the first control point value of the Cubic Bezier segment. For example, 
+		 					<code>bezierThrough([{x:0, y:0, scaleX:0.5}, {x:100, y:-200, scaleX:1.2}, {x:300, y:20, scaleX:0.8}]);</code>
+		 					would return an object with "x", "y", and "scaleX" properties, each containing an array of objects, one per Bezier segment and you could
+		 					access the first Bezier's first control point values like:
+		 					<code>myReturnedObject.x[0].b, myReturnedObject.y[0].b</code>, and <code>myReturnedObject.scaleX[0].b</code></li>
+		 		<li><b>c</b> - the second control point value of the Cubic Bezier segment. For example, 
+		 					<code>bezierThrough([{x:0, y:0, scaleX:0.5}, {x:100, y:-200, scaleX:1.2}, {x:300, y:20, scaleX:0.8}]);</code>
+		 					would return an object with "x", "y", and "scaleX" properties, each containing an array of objects, one per Bezier segment and you could
+		 					access the first Bezier's second control point values like:
+		 					<code>myReturnedObject.x[0].c, myReturnedObject.y[0].c</code>, and <code>myReturnedObject.scaleX[0].c</code></li>
+		 		<li><b>d</b> - the final anchor value of the Cubic Bezier segment. For example, 
+		 					<code>bezierThrough([{x:0, y:0, scaleX:0.5}, {x:100, y:-200, scaleX:1.2}, {x:300, y:20, scaleX:0.8}]);</code>
+		 					would return an object with "x", "y", and "scaleX" properties, each containing an array of objects, one per Bezier segment and you could
+		 					access the first Bezier's final anchor values like:
+		 					<code>myReturnedObject.x[0].d, myReturnedObject.y[0].d</code>, and <code>myReturnedObject.scaleX[0].d</code></li>
+		 </ul>
+		 
+		 
+		 <p>If you set the <code>quadratic</code> parameter to <code>true</code>, all of the Bezier segments will contain <code>a, b,</code>
+		 and <code>c</code> properties (<b>NOT</b> <code>d</code>) where <code>b</code> is the only control point. This can be 
+		 very useful because some drawing APIs only understand Quadratic Beziers. There are 4 times as many Quadratic Beziers returned as
+		 Cubic Beziers, though, due to the fact that the internal algorithm uses Cubic Beziers to plot the points (they're much more flexible) 
+		 and then splits each into 4 Quadratic ones.</p>
+		 
+		 <div class="listing" version="3.0"><pre>
+ //input:
+ var beziers = BezierPlugin.bezierThrough([{x:0, y:0}, {x:250, y:400}, {x:500, y:0}]);
+ 
+ //output:
+ {
+     x:[{a:0, b:0, c:125, d:250}, {a:250, b:375, c:500, d:500}],
+     y:[{a:0, b:0, c:400, d:400}, {a:400, b:400, c:0, d:0}]
+ }</pre></div>
+		 
+		 
+		 <div class="listing" version="3.0"><pre>
+ //get quadratic beziers so that we can use the canvas's drawing API...
+ var beziers = BezierPlugin.bezierThrough([{x:0, y:0}, {x:250, y:400}, {x:500, y:0}], 1, true);
+ 
+ var bx = beziers.x; //the "x" Beziers
+ var by = beziers.y; //the "y" Beziers
+</pre></div>
+		 
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">values</span>:Array</code> &mdash; An array containing generic objects with matching properties (or Point instances) through which the Beziers should be plotted, like <code>[{x:0, y:0, scaleX:0.5}, {x:100, y:-200, scaleX:1.2}, {x:300, y:20, scaleX:0.8}]</code>
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">curviness</span>:Number</code> (default = <code>1</code>)<code></code> &mdash; A number (default: 1) that controls the strength of the curves that are plotted through the values. A curviness of 0 would be result in straight lines, 1 is normal curviness, and 2 would be extreme curves. Use any value.
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">quadratic</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; if <code>true</code>, quadratic Bezier information will be returned instead of cubic Bezier data, thus each object in the returned array will only contain a, b, and c properties where b is the control point.
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">correlate</span>:String</code> (default = <code>x,y,z</code>)<code></code> &mdash; a comma-delimited list of property names whose relative distances should be correlated with each other when calculating the curvature of the Bezier through the values (the default is <code>"x,y,z"</code> because those are almost always properties that should be correlated).
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">prepend</span>:Object</code> (default = <code>null</code>)<code></code> &mdash; [optional] an object to treat as though it is the first element in the <code>values</code> array (typically only used internally for adding a tween's starting values)
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">calcDifs</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; if <code>true</code>, <code>da, ca,</code> and <code>ba</code> properties will be added to each bezier segment indicating (d - a), (c - a), and (b - a) which is typically only useful for improving animation performance slightly by precalculating those values instead of doing it each time the tween updates.
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>Object</code> &mdash; An object with properties matching those from the objects in the <code>values</code> array, with an array assigned to each property populated with an object for each Bezier. The Bezier objects will contain <code>a, b, c</code> (and <code>d</code> if <code>quadratic</code> is not <code>true</code>) properties for the anchors and control points.
+		 </td></tr></table></div><a name="cubicToQuadratic()"></a><a name="cubicToQuadratic(Number,Number,Number,Number)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">cubicToQuadratic</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public static function cubicToQuadratic(a:Number, b:Number, c:Number, d:Number):Array</code><p></p><p></p><p>
+		 Using the fixed midpoint approach, we return an array of 4 quadratic Beziers that 
+		 closely approximates the cubic Bezier data provided. Each quadratic Bezier object contains 
+		 <code>a, b,</code> and <code>c</code> properties where <code>a</code> is the starting anchor value, 
+		 <code>b</code> is the control point, and <code>c</code> is the ending anchor value.
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">a</span>:Number</code> &mdash; starting anchor of the cubic Bezier
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">b</span>:Number</code> &mdash; first control point of the cubic Bezier
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">c</span>:Number</code> &mdash; second control point of the cubic Bezier
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">d</span>:Number</code> &mdash; final anchor of the cubic Bezier
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>Array</code> &mdash; an array of 4 objects, one for each quadratic Bezier with a, b, and c properties
+		 </td></tr></table></div><a name="quadraticToCubic()"></a><a name="quadraticToCubic(Number,Number,Number)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">quadraticToCubic</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public static function quadraticToCubic(a:Number, b:Number, c:Number):Object</code><p></p><p></p><p>
+		 Returns the Cubic equivalent of a Quadratic Bezier. This method returns an object with a, b, c, and d properties 
+		 representing the starting anchor value (a), first control point (b), second control point (c), and ending anchor value (d) 
+		 of a Cubic Bezier matching the Quadratic Bezier data passed in.
+		 
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">a</span>:Number</code> &mdash; The starting anchor value
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">b</span>:Number</code> &mdash; The control point value
+		 </td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">c</span>:Number</code> &mdash; The ending anchor value
+		 </td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>Object</code> &mdash; An object with a, b, c, and d properties representing the starting anchor value (a), first control point (b), second control point (c), and ending anchor value (d) of a Cubic Bezier matching the Quadratic Bezier data passed in.
+		 </td></tr></table></div><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Tue Dec 11 2012, 12:05 PM -06:00  </center></div></body></html><!--<br/>Tue Dec 11 2012, 12:05 PM -06:00  -->

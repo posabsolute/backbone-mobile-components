@@ -81,7 +81,6 @@ Backbone.MobilePageView = Backbone.View.extend({
 	changeTitle : function (newTitle) {
 		if(this.options.topbar){
 			// remove right buttons
-			console.log("crap")
 			this.options.topbar.trigger("removeActionBtn");
 			this.options.topbar.changeTitle(newTitle);
 		}

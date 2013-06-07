@@ -1,0 +1,50 @@
+html, body {
+  overflow: hidden; }
+
+body {
+  background-color: #000000;
+  margin: 0px;
+  padding: 0px;
+  color: #CCCCCC;
+  font-family: Verdana, Geneva, sans-serif; }
+
+.barwrapper {
+  width: 5%;
+  float: left; }
+
+.bar {
+  position: relative;
+  background-color: #333;
+  width: 95%;
+  margin-left: 2.5%; }
+
+#bars {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height: 100%; }
+
+#trigger {
+  position: absolute;
+  top: 20%;
+  width: 100%; }
+
+#button {
+  display: block;
+  margin: 0 auto;
+  background-image: url("../img/tap_button.png");
+  width: 100px;
+  height: 100px; }
+
+#hit {
+  position: absolute;
+  width: 100%;
+  height: 100%; }
+  
+#instructions {
+	display: block;
+	margin: 0 auto;
+	text-align:center;
+	margin-top:20px;
+	color:#999999;
+}
