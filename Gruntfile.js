@@ -3,9 +3,6 @@
 
 module.exports = function (grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-    var path = require('path');
-    var root = path.normalize(__dirname);
-    var filesArray = require(root+'/app/config');
     grunt.initConfig({
         less: {
           development: {
