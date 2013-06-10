@@ -5,21 +5,16 @@
  */
 Backbone.MobilePopin = Backbone.View.extend({
 	events: {
-		"click .btnHide": "hide"
+		"click .btnHide": "hide",
+		"hide" : "hide"
 	},
 	className: "popin",
-	initialize: function() {
-		var self = this;
-		$.subscribe("popin.hide", function() {
-			self.hide();
-		});
-	},
 	render: function() {
 		var self = this,
 			// overlay html 
 			$overlay = $("<div class='overayContent' style='position:fixed; top:0; left:0; width:100%; height:100%; background:#000; opacity:0;z-index:9998;'></div>"),
 			// overlay content
-			content = (this.template) ? this.template({data: this.options}) : this.options.content
+			content = (this.template) ? this.template({data: this.options}) : this.options.content;
 		// put data in view elmen and set css for animation
 		this.$el.html(content).css({
 			"opacity": 0,

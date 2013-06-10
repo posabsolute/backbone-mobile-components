@@ -6,8 +6,7 @@
 
 Backbone.MobileMenuView = Backbone.View.extend({
     events: {
-        // when we click a menu item we navigate to a page
-        "click a"   : "navigate",
+
     },
     // can be overrided
     defaults : {
@@ -60,15 +59,6 @@ Backbone.MobileMenuView = Backbone.View.extend({
             onComplete: function() {
                 self.$el.css("display", "none");
             }
-        });
-    },
-    navigate: function(e) {
-        e.preventDefault();
-        // when we change page we want to hide the menu
-        this.hideMenu();
-        // need to find a better way to call the router
-        appmobile.routing.navigate($(e.currentTarget).attr("href"), {
-            trigger: true
         });
     }
 });

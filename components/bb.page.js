@@ -98,7 +98,7 @@ Backbone.MobilePageView = Backbone.View.extend({
 			};
 		}
 		// hide our menu just in case it's open
-		appmobile.menu.trigger("hideMenu");
+		if(this.options.menu) this.options.menu.trigger("hideMenu");
 		var $currentPage = $(".currentMobilePage");
 		// this call bbanimate that take cares of anims troubles
 		Backbone.bbanimate.page.hide({

@@ -29,17 +29,21 @@
         <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
         -->
 
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="assets/css/boot.css">
       
     </head>
     <body>
-
+        <div id="overflower"></div>
         <!-- Add your site or application content here -->
 
         <script src="assets/js/jquery.min.js"></script>
-        <script src="jquery.hammer.min.js"></script>
+        <script src="assets/js/jquery.hammer.min.js"></script>
+        <script src="assets/js/underscore.js"></script>
         <script src="assets/js/backbone.js"></script>
+        <script src="assets/js/bb-route-filter.js"></script>
+        <script src="assets/js/greensock-v12-js/src/minified/TweenLite.min.js"></script>
+        <script src="assets/js/greensock-v12-js/src/minified/plugins/CSSPlugin.min.js"></script>
+        <script src="assets/js/loader.js"></script>
 
         <script src="components/bb.utils.js"></script>
         <script src="components/bb.animate.js"></script>
@@ -51,6 +55,8 @@
 
         <script src="app/page.js"></script>
         <script src="app/popin.js"></script>
+        <script src="app/view.menu.js"></script>
+        <script src="app/view.topbar.js"></script>
         <script src="app/router.js"></script>
 
 
@@ -63,7 +69,7 @@
         <p>This is some content to tell you something</p>
         <div class="modal-tools">
             <a href="#" class="btn btnHide btn-white-flat">Cancel</a>
-            <button type="submit" name="submit" class="btn btn-blue-flat" id="btnAaddContacts"><span class="btnText">Action</span></button>
+            <a href="#" type="submit" name="submit" class="btn btn-blue-flat" id="btnAaddContacts">Action</a>
         </div>  
     </div>
 </script>
@@ -98,6 +104,20 @@
             <span class="text">Page 1</span>
         </a>
     </div>
+</script>
+
+
+<script>
+document.addEventListener("touchstart", function(){}, true);
+
+window.addEventListener("load",function() {
+   setTimeout(function(){
+    window.scrollTo(0, 0);
+    }, 0);
+ });
+
+Backbone.history.start({pushState: false});
+
 </script>
     </body>
 </html>
