@@ -104,7 +104,7 @@ Will show the menu and move to the side the current page
 
 ### navigate
 
-Currently each <a> element are tied in to pages, in that sense the navigate method is called when one of those is pushed
+Currently each "a" element are tied in to pages, in that sense the navigate method is called when one of those is pushed
 
 
 
