@@ -6,6 +6,9 @@ it do not assume anything about your structure or stack.
 This project should be seen as a starting point for your backbone mobile app, taking the components modifying to the core to fit your needs is encouraged, mush like backbone.js.
 Also please be advice this is an alpha release, it has never to this point used in a production application.
 
+
+*Documentation: http://documentup.com/posabsolute/backbone-mobile-components*
+
 ## Dependencies
 
 * TweenLite
