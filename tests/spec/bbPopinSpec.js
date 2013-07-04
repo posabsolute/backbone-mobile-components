@@ -30,7 +30,7 @@ describe("Backbone.MobilePopin", function() {
                 events:{
                 },
                 afterRender : function () {
-                   if($("#testpopup").length) flag = true;
+                   if($("#testpopup").length) flag = false;
                 }
             });
 
