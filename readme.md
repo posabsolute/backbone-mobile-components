@@ -1,5 +1,7 @@
 # Backbone Mobile components v0.1 (alpha)
 
+[![Build Status](https://travis-ci.org/posabsolute/backbone-mobile-components.png?branch=master)](https://travis-ci.org/posabsolute/backbone-mobile-components)
+
 Include 7 components to use with backbone to help you get started with doing mobile web apps. This is not a boilerplate project, 
 it do not assume anything about your structure or stack.
 
