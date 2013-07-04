@@ -43,20 +43,23 @@ Backbone.bbUtils = {
         }
     },
     // Utility that retrieve important phone informations
-    phone : function(){
+    phone : function(myua, noCache){
         // check if info is cached
-        if(this.cachePhone){
+        if(this.cachePhone && !noCache){
             return this.cachePhone;
         }
         // depending on the phone type return an object 
         var content, uaindex,
-            ua = navigator.userAgent.toLowerCase(),
-            isRetina = window.matchMedia("(-webkit-min-device-pixel-ratio: 2)").matches;
-        if( ua.indexOf("android") > -1 ){
+            ua = (myua) ? myua : navigator.userAgent.toLowerCase(),
+            isRetina = (window.devicePixelRatio && window.devicePixelRatio>=2) ? true : false,
+            pixelRatio = window.devicePixelRatio;
+
+        if( ua.indexOf("android") > -1  ){
             content = {
                 os : "android",
-                version : ua.match(/Android (\d+(?:\.\d+){1,2});/),
+                version : ua.match(/android (\d+(?:\.\d+)+);/)[1],
                 isRetina : isRetina,
+                pixelRatio : pixelRatio,
                 ua : ua
             };
         }else if ( ua.indexOf("iphone") > -1 ){
@@ -65,6 +68,7 @@ Backbone.bbUtils = {
                 os : "iphone",
                 version : ua.substr( uaindex + 3, 3 ).replace( '_', '.' ),
                 isRetina : isRetina,
+                pixelRatio : pixelRatio,
                 ua : ua
             };
         }else if( ua.indexOf("ipad") > -1 ){
@@ -73,13 +77,15 @@ Backbone.bbUtils = {
                 os : "ipad",
                 version : ua.substr( uaindex + 3, 3 ).replace( '_', '.' ),
                 isRetina : isRetina,
+                pixelRatio : pixelRatio,
                 ua : ua
             };
-        }else if( ua.indexOf("blackberry") > -1 && ua.indexOf("webkit") > -1 ){
+        }else if( ua.indexOf("blackberry") > -1 || ua.indexOf("bb10") > -1){
             content = {
                 os : "blackberry",
                 isWebkit : /webkit/.test(ua),
                 isRetina : isRetina,
+                pixelRatio : pixelRatio,
                 ua : ua
             };
         }else{

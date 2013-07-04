@@ -6,7 +6,8 @@
 Backbone.ListView = Backbone.View.extend({
     events:{
         // By default the vien handle search accross a collection
-        "keyup .searchList": "search"
+        "keyup .searchList": "search",
+        "focus .searchList": "moveToSearch"
     },
     defaults : {
         // fetch option for collection
@@ -17,11 +18,13 @@ Backbone.ListView = Backbone.View.extend({
     initialize: function() {
         var self = this;
         // extend options passed when extending the view
-        this.options = $.extend(true, this.defaults, this.options);
+        this.options = $.extend({},this.defaults, this.options);
         // since this view has no context we need to add one
         this.$el = this.options.el;
         // you might not want to render it when it's initialized, but that is generally the case
         if(!this.options.noRender) this.render();
+        // enabled search?
+        if(this.options.search) this.loadSearch();
     },
     render : function(){
         // on render it gets the collection
@@ -32,18 +35,27 @@ Backbone.ListView = Backbone.View.extend({
         this.trigger("list.fetching", [this.collection]);
         // add an offset option in case the api needs it
         this.options.fetch.offset = this.collection.length;
-        this.collection.fetch({
-            // I pass other options when initializing the view
-            data: this.options.fetch,
-            success : function (content) {
-                $.pageload.hide();
-                // now that we have the collection we render the list form that
-                self.renderList();
-                self.trigger("list.fetched", [this.collection]);
-                // you can also pass a success function to this component when you init it
-                if(self.options.success) self.options.success();
-            }
-        }); 
+
+        if(!this.options.no_fetch){
+            this.collection.fetch({
+                // I pass other options when initializing the view
+                data: this.options.fetch,
+                success : function (content) {
+                    fetch_done();
+                }
+            }); 
+        }else{
+            fetch_done();
+        }
+        function fetch_done(content){
+            $.pageload.hide();
+            // now that we have the collection we render the list form that
+            self.renderList();
+            self.trigger("list.fetched", [this.collection]);
+            // you can also pass a success function to this component when you init it     
+            if(self.options.fetch_success) self.options.fetch_success();
+        }
+
     },
     renderList : function(items){
         var self = this;
@@ -51,7 +63,10 @@ Backbone.ListView = Backbone.View.extend({
         var $frag = document.createDocumentFragment();
         // do we got a template?
         var viewItem = (this.options.viewItem) ? this.options.viewItem : Backbone.ListItem;
-        this.collection.each(function(item,i){
+        // do we have a collection passed in param?
+        var list = (items) ? items : this.collection;
+        // load list item view
+        list.each(function(item,i){
             if(i >= self.options.fetch.limit){
                 // hide the button if we have less items to add than our limit
                 self.$el.find(".btnLoadMore").addClass("hidden");
@@ -69,8 +84,17 @@ Backbone.ListView = Backbone.View.extend({
         this.$el.find(".listContainer").html($frag);
         this.trigger("list.rendered");
     },
+    loadSearch : function () {
+        var self = this;
+        this.$el.find(this.options.search.field).on("keyup", function(){
+            self.search();
+        });
+    },
+    moveToSearch : function () {
+        $("#overflower").scrollTop(this.$el.find(".searchList").offset().top-45);
+    },
     search : function(){
-        var letters = this.$el.find("#searchInput").val();
+        var letters = this.$el.find(".searchList").val();
         this.renderList(this.collection.search(letters));
     }
 });
@@ -78,8 +102,7 @@ Backbone.ListView = Backbone.View.extend({
 
 Backbone.ListItem = Backbone.View.extend({
     events: {
-        // generally an item link to another page, add this class to automatically handle that
-        "click .navigate" : "navigate"
+
     },
     className: "itemList clearfix",
     initialize : function(){
@@ -93,12 +116,6 @@ Backbone.ListItem = Backbone.View.extend({
         this.$el.html(this.template({data:content}));       
         // return dom element 
         return this;
-    },
-    navigate: function(e){
-        e.preventDefault();
-        $.publish("menu.hide");
-        // yeah I need to do something about that
-        appmobile.routing.navigate($(e.currentTarget).attr("href"), {trigger: true});
     },
     // just a small function that help remove the list item
     removing: function(){

@@ -46,7 +46,7 @@ Backbone.MobilePopin = Backbone.View.extend({
         });
 	},
 	// hide and remove popup, at this point do not call it back, create another one
-	hide: function(e) {
+	hide: function(e, complete) {
 		if (e) e.preventDefault();
 		var self = this;
 		Backbone.bbanimate.go({
@@ -66,6 +66,7 @@ Backbone.MobilePopin = Backbone.View.extend({
             onComplete: function() {
 				$(".popin").remove();
 				self.$el.remove();
+				if(complete) complete();
 			}
         });
 	}

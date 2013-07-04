@@ -7,7 +7,6 @@ Backbone.MobilePageView = Backbone.View.extend({
 	events : {
 		// swipe is used to show the menu
 		"swipe" : "showHideMenu",
-		"show" : "show"
 	},
 	initialize: function() {
 		//this.constructor.__super__.changeTitle.call(this, this.options.title);
@@ -56,9 +55,8 @@ Backbone.MobilePageView = Backbone.View.extend({
 		}
 
 		var self = this;
-		var $currentPage = $(".currentMobilePage");
 		// page exist? remove that page, make place for the new one
-		if ($currentPage.length) this.hide(options);
+		if (Backbone.currentMobilePage) this.hide(options, Backbone.currentMobilePage);
 		// no options? give our little guy the animType
 		if(!options){
 			options = {
@@ -66,6 +64,7 @@ Backbone.MobilePageView = Backbone.View.extend({
 			};
 		}
 		// this page is now the current page
+		Backbone.currentMobilePage = this;
 		this.$el.addClass("currentMobilePage")
 			.css("width", Backbone.bbUtils.windowWidth());
 		// this call bbanimate that take cares of anims troubles
@@ -89,7 +88,7 @@ Backbone.MobilePageView = Backbone.View.extend({
 	successFunc: function(func) {
 		if (func) func();
 	},
-	hide: function(options) {
+	hide: function(options, $page) {
 		var self = this;
 		// no options? give our little guy the animType opacity
 		if(!options){
@@ -99,15 +98,42 @@ Backbone.MobilePageView = Backbone.View.extend({
 		}
 		// hide our menu just in case it's open
 		if(this.options.menu) this.options.menu.trigger("hideMenu");
-		var $currentPage = $(".currentMobilePage");
 		// this call bbanimate that take cares of anims troubles
 		Backbone.bbanimate.page.hide({
-            to:$currentPage[0],
+            to:$page.el,
             animType : options.animType,
 			onComplete: function() {
-				$currentPage.remove();
+				$page.remove();
 				if (options && options.complete) self.successFunc(options.complete);
 			}
         });
+	},
+	checkPageModel : function(options){
+		var self = this;
+		if(!this.model){
+			$.pageload.show();
+			this.model = new options.newModel();
+			this.model.fetch({
+				type: (options.type) ? options.type : 'POST',
+				data: $.param(options.params)
+			}).success(function(data){	
+				if(options.success) options.success();
+			});
+		}else{
+			options.success();
+		}
+	},
+	checkPageCollection : function (options) {
+		 if(!options.collection.length){
+            $.pageload.show();
+            options.collection.fetch({
+                data: params,
+                success : function (content) {
+                    if(options.success) options.success(content);
+                }
+       		});
+        }else{
+            options.success()
+        }   
 	}
 });

@@ -2,7 +2,6 @@
 
 
 module.exports = function (grunt) {
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
     grunt.initConfig({
         less: {
           development: {
@@ -21,21 +20,45 @@ module.exports = function (grunt) {
                 tasks: ['less']
             }
         },
+
         jshint: {
             options: {
                 jshintrc: '.jshintrc'
             },
             all: [
-                'app/**/*.js'
+                'components/*.js'
             ]
+        },
+        jasmine: {
+            components: {
+              src: [
+              'assets/js/jquery.min.js',
+              'assets/js/underscore.js',
+              'assets/js/backbone.js',
+              'assets/js/greensock-v12-js/src/minified/TweenLite.min.js',
+              'assets/js/greensock-v12-js/src/minified/CSSPlugin.min.js',
+              'components/*js'
+              ],
+              options: {
+                specs: 'tests/spec/*Spec.js',
+                keepRunner : true,
+                //helpers: 'test/spec/*.js'
+              }
+            }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-usemin');
 
 
-    grunt.registerTask('jshint', [
+    grunt.registerTask('jshintage', [
         'jshint',
+    ]);
+     grunt.registerTask('test', [
+        'jasmine',
     ]);
     grunt.registerTask('buildcss', [
         'less',
