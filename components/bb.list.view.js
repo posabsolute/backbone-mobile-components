@@ -62,7 +62,7 @@ Backbone.ListView = Backbone.View.extend({
         // let's create a fragment for looping our list, it's faster
         var $frag = document.createDocumentFragment();
         // do we got a template?
-        var viewItem = (this.options.viewItem) ? this.options.viewItem : Backbone.ListItem;
+        var ViewItem = (this.options.viewItem) ? this.options.viewItem : Backbone.ListItem;
         // do we have a collection passed in param?
         var list = (items) ? items : this.collection;
         // load list item view
@@ -73,7 +73,7 @@ Backbone.ListView = Backbone.View.extend({
                 return {};
             }
             self.$el.find(".btnLoadMore").removeClass("hidden");
-            var view = new viewItem({
+            var view = new ViewItem({
                 template : self.options.itemView,
                 model: item
             });

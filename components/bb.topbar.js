@@ -32,7 +32,6 @@ Backbone.MobileTopbarView = Backbone.View.extend({
     },
     // we change title generally when there is a page change but you can call it at anytime
     changeTitle: function(title) {
-        console.log("colis")
         var $title = this.$el.find(".text");
         // first we hide it
         Backbone.bbanimate.go({
