@@ -70,5 +70,7 @@ module.exports = function (grunt) {
     grunt.registerTask('watchcss', [
         'watch:less',
     ]);
-
+    grunt.registerTask('travis', [
+        'jshint','jasmine'
+    ]);
 };
