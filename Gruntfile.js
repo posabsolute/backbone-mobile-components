@@ -36,13 +36,13 @@ module.exports = function (grunt) {
               'assets/js/underscore.js',
               'assets/js/backbone.js',
               'assets/js/greensock-v12-js/src/minified/TweenLite.min.js',
-              'assets/js/greensock-v12-js/src/minified/CSSPlugin.min.js',
+              'assets/js/greensock-v12-js/src/minified/plugins/CSSPlugin.min.js',
               'components/*js'
               ],
               options: {
                 specs: 'tests/spec/*Spec.js',
                 keepRunner : true,
-                //helpers: 'test/spec/*.js'
+                helpers: 'tests/helpers/*.js'
               }
             }
         }

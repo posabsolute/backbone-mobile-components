@@ -17,7 +17,7 @@ Backbone.bbanimate = {
         // extend options with params passed from app
         var op = $.extend({}, this.defaults, params);
         // some android phones are too slow to use animations
-        if(Backbone.bbUtils.useAnim()){
+        if(Backbone.bbUtils.useAnim() && !op.noAnim){
             // check is there is something to animate
             if(op.attrs){
                 // animate using css3
@@ -27,6 +27,7 @@ Backbone.bbanimate = {
                     ease: op.ease,
                     onComplete: function(){
                         // call callback if defined
+                        console.log(op)
                         if(op.onComplete) op.onComplete();
                     }
                 });               
@@ -36,11 +37,18 @@ Backbone.bbanimate = {
                     if(op.onComplete) op.onComplete();
                 }, (op.delay*1000));
             }
+        // no animation
         }else{
-            setTimeout(function(){
+            // check if tehre is a delay
+            if(op.delay){
+                setTimeout(function(){
+                    if(op.attrs) op.to.css(op.attrs);
+                    if(op.onComplete) op.onComplete();
+                }, (op.delay*1000));
+            }else{
                 if(op.attrs) op.to.css(op.attrs);
                 if(op.onComplete) op.onComplete();
-            }, (op.delay*1000));
+            }
         }
     },
     // used by the page component to animate pages

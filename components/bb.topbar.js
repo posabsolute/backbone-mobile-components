@@ -12,6 +12,7 @@ Backbone.MobileTopbarView = Backbone.View.extend({
     },
     initialize: function() {
         var self = this;
+
         this.template = _.template($("#topbar_tpl").html());
         //right side button events, can add or delete
         this.listenTo(this, "removeActionBtn", this.removeActionBtn);
@@ -31,12 +32,13 @@ Backbone.MobileTopbarView = Backbone.View.extend({
         return this;
     },
     // we change title generally when there is a page change but you can call it at anytime
-    changeTitle: function(title) {
+    changeTitle: function(title, noAnim) {
         var $title = this.$el.find(".text");
         // first we hide it
         Backbone.bbanimate.go({
             to:$title,
             attrs : {"opacity": 0, "marginLeft": "-40px"},
+            noAnim : noAnim,
             onComplete: function() {
                 // change title replace it
                 $title.html(title).css("marginLeft", "40px");
