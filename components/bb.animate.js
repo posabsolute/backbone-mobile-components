@@ -27,7 +27,6 @@ Backbone.bbanimate = {
                     ease: op.ease,
                     onComplete: function(){
                         // call callback if defined
-                        console.log(op)
                         if(op.onComplete) op.onComplete();
                     }
                 });               

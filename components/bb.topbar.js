@@ -94,14 +94,16 @@ Backbone.MobileTopbarView = Backbone.View.extend({
             var $menu = $("<div class='submenu'></div>").css("opacity", 0);
             // load each item in submenu
             _.each(this.subMenuItems, function(item, i) {
-                $menu.append("<a href='#' class='subMenuItem' data-oid=" + item.oid + ">" + item.name + "</a>");
+                $menu.append("<a href='#' class='subMenuItem itemSub" + item.oid + "' data-oid=" + item.oid + ">" + item.name + "</a>");
             });
             // add menu
             this.$el.find('.topbarContainer').append($menu);
             // show menu
-            $menu.transition({
-                opacity: 1
-            }, 250);
+            Backbone.bbanimate.go({
+                to:$menu,
+                speed: 0.25,
+                attrs : {"opacity": 1}
+            });
         } else {
             // if the menu is already open, hide it
             this.$el.find(".submenu").remove();

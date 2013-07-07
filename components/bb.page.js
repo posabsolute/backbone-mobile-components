@@ -44,7 +44,8 @@ Backbone.MobilePageView = Backbone.View.extend({
         }
     },
     show: function(options) {
-        $.pageload.hide();
+        // load page loader
+        if($.pageload) $.pageload.hide();
         // set height of the page
         this.resizePage();
         // bind resize on DOM change in this element
@@ -111,7 +112,7 @@ Backbone.MobilePageView = Backbone.View.extend({
     checkPageModel : function(options){
         var self = this;
         if(!this.model){
-            $.pageload.show();
+            if($.pageload) $.pageload.show();
             this.model = new options.newModel();
             this.model.fetch({
                 type: (options.type) ? options.type : 'POST',
@@ -125,7 +126,7 @@ Backbone.MobilePageView = Backbone.View.extend({
     },
     checkPageCollection : function (options) {
          if(!options.collection.length){
-            $.pageload.show();
+            if($.pageload) $.pageload.show();
             options.collection.fetch({
                 data: params,
                 success : function (content) {

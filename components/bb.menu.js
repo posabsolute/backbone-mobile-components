@@ -11,11 +11,13 @@ Backbone.MobileMenuView = Backbone.View.extend({
     // can be overrided
     defaults : {
         speed:0.4,
-        width:"100px"
+        width:"100px",
+        templateId :"#menu_tpl"
     },
-    initialize: function() {
+    initialize: function(params) {
         var self = this;
-        this.template = _.template($("#menu_tpl").html());
+        this.options = $.extend({}, this.defaults, this.options);
+        this.template = _.template($(this.options.templateId).html());
         // Any view can call events to show or hide the menu
         this.listenTo(this, "showMenu", this.showMenu);
         this.listenTo(this, "hideMenu", this.hideMenu);
@@ -33,7 +35,7 @@ Backbone.MobileMenuView = Backbone.View.extend({
     },
     /* MENU ANIMS */
     isOpened: false,
-    showMenu: function() {
+    showMenu: function(op) {
         // flags up
         this.isOpened = true;
         // put an active state to menu button in the toolbar
@@ -42,11 +44,12 @@ Backbone.MobileMenuView = Backbone.View.extend({
         // call animation util, 
         Backbone.bbanimate.go({
             to:$(".currentMobilePage,#topbar"),
-            attrs : {marginLeft: this.defaults.width},
-            ease:Power2.easeInOut
+            attrs : {marginLeft: this.options.width},
+            ease:Power2.easeInOut,
+            onComplete : (op && op.onComplete) ? op.onComplete() : false
         });
     },
-    hideMenu: function() {
+    hideMenu: function(op) {
         var self = this;
         // flags down
         this.isOpened = false;
@@ -58,6 +61,7 @@ Backbone.MobileMenuView = Backbone.View.extend({
             ease:Power2.easeInOut,
             onComplete: function() {
                 self.$el.css("display", "none");
+                if(op && op.onComplete) { op.onComplete(); }
             }
         });
     }
