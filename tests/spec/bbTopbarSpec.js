@@ -16,7 +16,8 @@ describe("Backbone.MobileTopbar", function() {
     });
 
     window.testTopbarAction = {
-        action1 : function(){}
+        action1 : function(){},
+        action2 : function(){}
     };
 
     it("Topbar should exist after rendering & pushed into body", function() {
@@ -45,5 +46,67 @@ describe("Backbone.MobileTopbar", function() {
         $( '.btnMenuRight' ).trigger( 'click' );
          expect(testTopbarAction.action1).toHaveBeenCalled();
     });
+
+
+    it("loadSubMenuAction  should add a button to topbar with a sub menu", function() {
+        mytopbar.trigger("loadActionBtn", {
+            icon : "<span class='icon_plus2'>a</span>",
+            subMenuItems : {
+                item1 : {
+                    oid : "item1",
+                    name : "item1",
+                    action : function(){
+                        testTopbarAction.action2();
+                    }
+                },
+                item2 : {
+                    oid : "item2",
+                    name : "item2",
+                    action : function(){
+                        testTopbarAction.action2();
+                    }
+                }
+            }
+        });
+        expect($(".topbarContainer").find(".icon_plus2")).toExist();
+    });
+
+    it("Click on menu button should call submenu", function() {
+        spyOn(testTopbarAction, 'action2').andCallThrough();
+        spyOn(mytopbar, 'showHideSubmenu').andCallThrough();
+
+        $( '.btnMenuRight' ).trigger( 'click' );
+
+        expect($(".itemSubitem1")).toExist();
+        expect($(".submenu")).toExist();
+
+        $( '.itemSubitem1' ).trigger( 'click' );
+
+        expect(mytopbar.showHideSubmenu).toHaveBeenCalled();
+        expect(testTopbarAction.action2).toHaveBeenCalled();
+    });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
