@@ -2,11 +2,7 @@
 
 [![Build Status](https://travis-ci.org/posabsolute/backbone-mobile-components.png?branch=master)](https://travis-ci.org/posabsolute/backbone-mobile-components)
 
-Include 7 components to use with backbone to help you get started with doing mobile web apps. This is not a boilerplate project, 
-it do not assume anything about your structure or stack.
-
-This project should be seen as a starting point for your backbone mobile app, taking the components, modifying to the core to fit your needs is encouraged, much like backbone.js.
-Also please be advice this is a beta release.
+Include 7 components to use with backbone to help you get started with doing mobile web apps. This is not a boilerplate project, it do not assume anything about your structure or stack.
 
 
 *Documentation: http://documentup.com/posabsolute/backbone-mobile-components*
@@ -308,7 +304,7 @@ Check is the phone can run anims, by default animation is active unless the phon
 
 ### phone
 
-Retrieve Important phone informations and return an object, currently supported operating system:  android, iphone, ipad, blackberry(only with)
+Retrieve Important phone informations and return an object, currently supported operating system:  android, iphone, ipad, blackberry
 
 Call:
 
