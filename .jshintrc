@@ -1,0 +1,22 @@
+{
+    "node": true,
+    "browser": false,
+    "white":false,
+    "es5": false,
+    "esnext": false,
+    "bitwise": false,
+    "camelcase": false,
+    "curly": false,
+    "eqeqeq": false,
+    "multistr": false,
+    "immed": false,
+    "latedef": false,
+    "newcap": true,
+    "noarg": true,
+    "regexp": true,
+    "undef": false,
+    "unused": false,
+    "strict": false,
+    "trailing": false,
+    "smarttabs": true
+}
