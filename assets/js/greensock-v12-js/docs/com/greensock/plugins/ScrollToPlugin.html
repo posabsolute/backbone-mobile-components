@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="ScrollToPlugin,com.greensock.plugins.ScrollToPlugin"><title>com.greensock.plugins.ScrollToPlugin</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'ScrollToPlugin - GreenSock JavaScript Documentation';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">GreenSock JavaScript API Docs</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?com/greensock/plugins/ScrollToPlugin.html&amp;com/greensock/plugins/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">ScrollToPlugin</td><td class="titleTableSubNav" id="subNav" align="right"></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("ScrollToPlugin"); titleBar_setSubNav(false,false,false,false,false,false,false,false,false,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">com.greensock.plugins</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  ScrollToPlugin</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">ScrollToPlugin  <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> <a href="../../../com/greensock/plugins/TweenPlugin.html">TweenPlugin</a> <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> Object</td></tr></table><p></p><p></p><p></p>
+ Allows TweenLite and TweenMax to animate the scroll position of either the window (like doing <code>window.scrollTo(x, y)</code>) or
+ a &lt;div> DOM element's content (like doing <code>myDiv.scrollTop = y; myDiv.scrollLeft = x;</code>). To scroll the window to a 
+ particular position, use the <code>window</code> as the target of the tween like this:
+ 
+ <div class="listing" version="3.0"><pre>
+//scroll to 400 pixels down from the top
+TweenLite.to(window, 2, {scrollTo:{y:400}, ease:Power2.easeOut});
+</pre></div>
+ 
+               <p>Or to tween the content of a div, make sure you've set the <code>overflow:scroll</code> on the div and then
+ do this:</p>
+ 
+               <div class="listing" version="3.0"><pre>
+//scroll to 250 pixels down from the top of the content in the div
+TweenLite.to(myDiv, 2, {scrollTo:{y:250}, ease:Power2.easeOut});
+</pre></div>
+ 
+               <p>You can define an x or y value or both (to scroll on both the x- and y-axis). For example,
+ to scroll to 400 pixels from the top and 200 pixels from the left, do this:</p>
+ 
+               <div class="listing" version="3.0"><pre>
+TweenLite.to(myDiv, 2, {scrollTo:{y:400, x:200}, ease:Power2.easeOut});
+</pre></div>
+ 
+               <p>The ScrollToPlugin will automatically sense if the scroll position was changed outside of itself (like if the
+ user manually started dragging the scrollbar mid-tween) and cancel that portion of the tween. It won't kill the 
+ entire tween - just the scrolling portion of the tween. That means, for example, that the tween's onComplete
+ would still fire at the end of the tween. If, however, you'd like to kill the entire tween if another force
+ changes the scroll position, set <code>autoKill:true</code> inside the <code>scrollTo</code> object, like:</p>
+ 
+               <div class="listing" version="3.0"><pre>
+TweenLite.to(myDiv, 2, {scrollTo:{y:400, autoKill:true}, ease:Power2.easeOut});
+</pre></div>
+ 
+ To scroll to the maximum scroll position, use the string "max" as the value, like this:
+ 
+ <div class="listing" version="3.0"><pre>
+TweenLite.to(myDiv, 2, {scrollTo:{y:"max"}});
+</pre></div>
+ 
+ If you don't wrap the value in an object, it will assume you want to scroll in the "y" direction, so these two lines are funtionally equivalent:
+ 
+ <div class="listing" version="3.0"><pre>
+TweenLite.to(myDiv, 2, {scrollTo:{y:"max"}});
+TweenLite.to(myDiv, 2, {scrollTo:"max"});
+</pre></div>
+ 
+               <p>
+                  <b>Copyright 2008-2012, GreenSock. All rights reserved.</b> This work is subject to the terms in <a href="http://www.greensock.com/terms_of_use.html" target="">http://www.greensock.com/terms_of_use.html</a> or for <a href="http://www.greensock.com/club/" target="">Club GreenSock</a> members, the software agreement that was issued with the membership.</p>
+ 
+            <p></p><br/><hr></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Tue Dec 11 2012, 12:05 PM -06:00  </center></div></body></html><!--<br/>Tue Dec 11 2012, 12:05 PM -06:00  -->

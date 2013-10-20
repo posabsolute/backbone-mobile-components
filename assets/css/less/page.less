@@ -1,0 +1,77 @@
+
+body{
+	margin:0;
+	padding:0;
+	font-family:helvetica;
+	color:#333;
+	min-height:110%;
+	background: #fff;
+	background-attachment:fixed;
+}
+#overflower{
+	position:relative;
+	width:100%;
+	z-index:10;
+	overflow-x:hidden;
+}
+.hidden{display:none !important;}
+
+.loader, .popin, .overlayContent{
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+}
+
+
+
+.pageContent{
+	  /*activate the GPU for compositing each page */
+	position:absolute;
+	top:0; left:0;
+  	transform: translateZ(0);
+  	-webkit-transform: translateZ(0);
+	width:100%;
+	z-index:3;
+	min-width:320px;
+	background: #fff;
+	padding-top:42px;
+}
+
+
+
+// hack to get domInserted event for height resize
+@keyframes nodeInserted {  
+	from { clip: rect(1px, auto, auto, auto); }
+	to { clip: rect(0px, auto, auto, auto); }  
+}
+
+@-moz-keyframes nodeInserted {  
+	from { clip: rect(1px, auto, auto, auto); }
+	to { clip: rect(0px, auto, auto, auto); }
+}
+
+@-webkit-keyframes nodeInserted {  
+	from { clip: rect(1px, auto, auto, auto); }
+	to { clip: rect(0px, auto, auto, auto); }
+}
+
+@-ms-keyframes nodeInserted {  
+	from { clip: rect(1px, auto, auto, auto); }
+	to { clip: rect(0px, auto, auto, auto); }
+}
+
+@-o-keyframes nodeInserted {  
+	from { clip: rect(1px, auto, auto, auto); }
+	to { clip: rect(0px, auto, auto, auto); }
+}
+.currentMobilePage * {
+    animation-duration: 0.001s;
+    -o-animation-duration: 0.001s;
+    -ms-animation-duration: 0.001s;
+    -moz-animation-duration: 0.001s;
+    -webkit-animation-duration: 0.001s;
+    animation-name: nodeInserted;
+    -o-animation-name: nodeInserted;
+    -ms-animation-name: nodeInserted;        
+    -moz-animation-name: nodeInserted;
+    -webkit-animation-name: nodeInserted;
+}

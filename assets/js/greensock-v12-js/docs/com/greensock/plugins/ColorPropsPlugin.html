@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="ColorPropsPlugin,com.greensock.plugins.ColorPropsPlugin"><title>com.greensock.plugins.ColorPropsPlugin</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'ColorPropsPlugin - GreenSock JavaScript Documentation';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">GreenSock JavaScript API Docs</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?com/greensock/plugins/ColorPropsPlugin.html&amp;com/greensock/plugins/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">ColorPropsPlugin</td><td class="titleTableSubNav" id="subNav" align="right"></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("ColorPropsPlugin"); titleBar_setSubNav(false,false,false,false,false,false,false,false,false,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">com.greensock.plugins</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  ColorPropsPlugin</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">ColorPropsPlugin  <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> <a href="../../../com/greensock/plugins/TweenPlugin.html">TweenPlugin</a> <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> Object</td></tr></table><p></p><p></p><p></p>
+ Tweens any color-related property of any object, like <code>myObject.borderColor</code> from <code>"rgb(255,0,51)"</code>
+ to <code>"rgb(102,204,0)"</code> (and you can define the initial color in almost any format like <code>"#FF00CC"</code> 
+ or <code>"rgba(255,0,51,0.5)"</code> or <code>"red"</code> or <code>"#f0c"</code> or <code>0xFF00CC</code>). New values
+ are always set in the format <code>"rgb(...)"</code> (or <code>rgba(...)</code> for values that include alpha).
+ 
+ <p>You can tween an unlimited number of color properties simultaneously. Just use the associated property name inside
+ the <code>colorProps:{}</code> object like this:</p>
+ 
+               <div class="listing" version="3.0"><pre>
+//tweens myObject.borderColor and myObject.myCustomProp 
+TweenLite.to(myObject, 1, {colorProps:{borderColor:"red", myCustomProp:"rgb(204,51,0)"}, ease:Linear.easeNone});
+</pre></div>
+ 
+               <p>ColorPropsPlugin is <b>NOT</b> generally intended to be used with css-related color properties because 
+ the CSSPlugin already handles those. ColorPropsPlugin is meant to tween other color-related properties directly
+ on your JavaScript object(s).</p>
+ 
+               <p>You may even use getter and setter functions on your JavasScript object if you want, so for example let's 
+ say your JavaScript object has a <code>getColor()</code> and <code>setColor()</code> method; tweening the 
+ value would be as simple as:</p>
+ 
+               <div class="listing" version="3.0"><pre>
+//tween a getter/setter-based value
+TweenLite.to(myObject, 1, {colorProps:{setColor:"rgb(102,255,51)"}, ease:Linear.easeNone});
+</pre></div>
+ 
+               <p>This even works for single-method getters/setters (like the ones in jQuery). For example, maybe 
+ you have a <code>lineColor()</code> method that serves as a getter and a setter based on whether or
+ not you pass in a parameter like this:</p>
+ 
+               <div class="listing" version="3.0"><pre>
+//gets
+var color = myObject.lineColor(); 
+ 
+//sets
+myObject.lineColor("rgb(255,0,51)"); 
+ 
+//tweens
+TweenLite.to(myObject, 1, {colorProps:{lineColor:"rgb(102,255,51)"}, ease:Linear.easeNone});
+</pre></div>
+ 
+               <p>
+                  <b>Note:</b> a common mistake is to forget to wrap color-related properties in a <code>colorProps</code>
+ object which is essential for specifying your intent.</p>
+ 
+ 
+               <p>
+                  <b>Copyright 2008-2012, GreenSock. All rights reserved.</b> This work is subject to the terms in <a href="http://www.greensock.com/terms_of_use.html" target="">http://www.greensock.com/terms_of_use.html</a> or for <a href="http://www.greensock.com/club/" target="">Club GreenSock</a> members, the software agreement that was issued with the membership.</p>
+ 
+            <p></p><br/><hr></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Tue Dec 11 2012, 12:05 PM -06:00  </center></div></body></html><!--<br/>Tue Dec 11 2012, 12:05 PM -06:00  -->

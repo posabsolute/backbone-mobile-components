@@ -1,0 +1,28 @@
+{
+  "name": "backbonemobilecomponents",
+  "title": "Bacbone Mobile Components",
+  "description": "Include 7 components to use with backbone to help you get started with doing mobile web apps.",
+  "keywords": [
+    "mobile",
+    "android",
+    "ios",
+    "ios",
+    "backbone"
+  ],
+  "version": "0.9",
+  "author": {
+    "name": "Cedric Dugas",
+    "url": "http://www.position-absolute.com"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "docs": "http://documentup.com/posabsolute/backbone-mobile-components",
+  "demo": "http://posabsolute.github.com/jQuery-Validation-Engine/",
+  "dependencies": {
+    "jquery": ">=1.6"
+  }
+}

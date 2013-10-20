@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>GreenSock Animation Demo</title>
+<script type="text/javascript" src="../src/uncompressed/TweenMax.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<style type="text/css">
+
+html, body {
+	overflow:hidden;
+}
+body {
+	background-color:#000000;
+	margin:0px;
+	padding:0px;
+	color:#CCCCCC;
+	font-family:Verdana, Geneva, sans-serif;
+}
+.class1 {
+	border:none;
+	background-color:#CCC;
+	padding:10px;
+	color:#CC0000;
+	font-size:24px;
+	margin:0;
+}
+.class2 {
+	width:100px;
+	background-color:green;
+	opacity:0.5;
+	padding:1px 20px;
+	margin-left:10px;
+	font-size:24px;
+	filter:alpha(opacity=50);
+}
+</style>
+</head>
+
+<body>
+
+<div id="div1" class="class1"><p>This is d1</p></div>
+<div id="div2" class="class1"><p>This is d2</p></div>
+<div id="div3" class="class1"><p>This is d3</p></div>
+
+
+<script language="JavaScript" type="text/javascript">
+$(function() {
+    
+	var d1 = document.getElementById("div1"),
+		d2 = document.getElementById("div2"),
+		d3 = document.getElementById("div3");
+		
+	//tween all class1 objects to width:50% (notice we're using jQuery to do the selection (optional of course). It will automatically interpret arrays.
+	TweenLite.to( $(".class1"), 2, {css:{width:"50%"}, ease:Strong.easeInOut});
+	
+	//then, tween the colors and marginLeft of d1 while the first tween is still happening.
+	TweenLite.to( d1, 0.75, {css:{backgroundColor:"#0CF", color:"rgb(255,255,255)", marginLeft:"100px"}, delay:1});
+	
+	//now tween d2 to some new css values that are described as a standard css string:
+	TweenLite.to( d2, 2, {css:"background-color:rgb(255,0,0); font-size:12px; width:70%; color:#000", delay:2});
+	
+	//now tween d3 to an entirely new class, "class2" (this is somewhat experimental). 
+	TweenLite.to( d3, 1, {css:{className:"class2"}, delay:4});
+	
+	//then, tween d1's width back and forth from 50% to 90% 2 times using TweenMax's repeat/yoyo
+	TweenMax.to( d1, 1, {css:{width:"90%"}, delay:5, ease:Quad.easeInOut, repeat:3, yoyo:true});
+	
+	//now let's use TimelineLite to make sequencing easier...
+	var tl = new TimelineLite({delay:9, onComplete:completeHandler});
+	tl.to( $(".class1"), 2, {css:{marginLeft:0, backgroundColor:"#CCC", color:"#F00", width:"100%", opacity:1, padding:"10px"}})
+	  .to( d1, 2, {css:{height:200}})
+	  .staggerTo( $(".class1"), 2, {css:{marginLeft:"+=100", width:"400px"}}, 0.2) //<-- notice the relative value indicated by the "+=" prefix. And we're tweening to a "px" width from a percentage (different units).
+	  .staggerTo( $(".class1"), 2, {css:{rotation:360, scaleX:0.5, scaleY:0.8, x:100}}, 0.2) //<-- look how easy it is to do transforms like rotation, scaleX, scaleY, x, y, and even skewX and skewY!
+	  .staggerTo( $(".class1"), 2, {css:{autoAlpha:0}}, 0.2); //<-- notice the autoAlpha which automatically sets visibility:hidden if alpha/opacity hits 0, and toggles it to visible when alpha/opacity isn't 0. 
+	
+	function completeHandler() {
+		console.log("done with sequence.");
+	}
+	
+});
+
+</script>
+</body>
+</html>

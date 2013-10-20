@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]>    <html class="no-js iem7"> <![endif]-->
+<!--[if (gt IEMobile 7)|!(IEMobile)]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="cleartype" content="on">
+
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/touch/apple-touch-icon-144x144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/touch/apple-touch-icon-114x114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/touch/apple-touch-icon-72x72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="img/touch/apple-touch-icon-57x57-precomposed.png">
+        <link rel="shortcut icon" href="img/touch/apple-touch-icon.png">
+
+        <!-- Tile icon for Win8 (144x144 + tile color) -->
+        <meta name="msapplication-TileImage" content="img/touch/apple-touch-icon-144x144-precomposed.png">
+        <meta name="msapplication-TileColor" content="#222222">
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="">
+
+        <!-- This script prevents links from opening in Mobile Safari. https://gist.github.com/1042026 -->
+        <!--
+        <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
+        -->
+
+        <link rel="stylesheet" href="assets/css/boot.css">
+      
+    </head>
+    <body>
+        <div id="overflower"></div>
+        <!-- Add your site or application content here -->
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.hammer.min.js"></script>
+        <script src="assets/js/underscore.js"></script>
+        <script src="assets/js/backbone.js"></script>
+        <script src="assets/js/bb-route-filter.js"></script>
+        <script src="assets/js/greensock-v12-js/src/minified/TweenLite.min.js"></script>
+        <script src="assets/js/greensock-v12-js/src/minified/plugins/CSSPlugin.min.js"></script>
+        <script src="assets/js/loader.js"></script>
+
+        <script src="components/bb.utils.js"></script>
+        <script src="components/bb.animate.js"></script>
+        <script src="components/bb.menu.js"></script>
+        <script src="components/bb.topbar.js"></script>
+        <script src="components/bb.popin.js"></script>
+        <script src="components/bb.list.view.js"></script>
+        <script src="components/bb.page.js"></script>
+
+        <script src="app/page.js"></script>
+        <script src="app/popin.js"></script>
+        <script src="app/view.menu.js"></script>
+        <script src="app/view.topbar.js"></script>
+        <script src="app/router.js"></script>
+
+
+<script id="popin_tpl" type="text/template">
+    <div class="modal-title">
+        Popin title
+    </div>
+    <div class="modal-body">
+        <h3><strong>Yeah</strong></h3>
+        <p>This is some content to tell you something</p>
+        <div class="modal-tools">
+            <a href="#" class="btn btnHide btn-white-flat">Cancel</a>
+            <a href="#" type="submit" name="submit" class="btn btn-blue-flat" id="btnAaddContacts">Action</a>
+        </div>  
+    </div>
+</script>
+
+<script id="page_template" type="text/template">
+    This is a page
+
+</script>
+
+<script id="topbar_tpl" type="text/template">
+    <div class="topbarContainer">
+        <a class="icon btnmenu" href="#"><span class="icon_menu"></span></a>
+        <span class="text">Page title</span>
+    </div>
+</script>
+
+<script id="menu_tpl" type="text/template">
+    <div class="menuContent">
+        <a class="item btnContacts" href="/page1">
+            <span class="text">Page 1</span>
+        </a>
+        <a class="item btnDrafts" href="/page2">
+            <span class="text">Page 2</span>
+        </a>
+        <a class="item btnSents" href="/page3">
+            <span class="text">Page 3</span>
+        </a>
+        <a class="item btnOutbox" href="/page4">
+            <span class="text ">Page 4</span>
+        </a>
+        <a class="item btnSignout" href="/page1">
+            <span class="text">Page 1</span>
+        </a>
+    </div>
+</script>
+
+
+<script>
+document.addEventListener("touchstart", function(){}, true);
+
+window.addEventListener("load",function() {
+   setTimeout(function(){
+    window.scrollTo(0, 0);
+    }, 0);
+ });
+
+Backbone.history.start({pushState: false});
+
+</script>
+    </body>
+</html>

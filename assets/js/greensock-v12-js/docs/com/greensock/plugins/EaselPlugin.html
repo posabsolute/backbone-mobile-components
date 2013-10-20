@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="EaselPlugin,com.greensock.plugins.EaselPlugin"><title>com.greensock.plugins.EaselPlugin</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'EaselPlugin - GreenSock JavaScript Documentation';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">GreenSock JavaScript API Docs</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?com/greensock/plugins/EaselPlugin.html&amp;com/greensock/plugins/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">EaselPlugin</td><td class="titleTableSubNav" id="subNav" align="right"></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("EaselPlugin"); titleBar_setSubNav(false,false,false,false,false,false,false,false,false,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">com.greensock.plugins</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  EaselPlugin</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">EaselPlugin  <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> <a href="../../../com/greensock/plugins/TweenPlugin.html">TweenPlugin</a> <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> Object</td></tr></table><p></p><p></p><p></p>
+ Tweens special EaselJS-related properties like ColorFilter (see <a href="http://www.createjs.com/#!/EaselJS" target="external">http://www.createjs.com/#!/EaselJS</a>
+ for more information about EaselJS). Of course you don't need the plugin to tween normal numeric properties of 
+ EaselJS objects, but some filters or effects require special manipulation like ColorFilters (which is currently
+ the only filter supported by EaselPlugin but more will be added in the future). 
+ 
+ <p>GreenSock's EaselPlugin exposes convenient properties that aren't a part of EaselJS's API like 
+ <code>"tint", "tintAmount", "exposure",</code> and <code>"brightness"</code>. Simply wrap the values
+ that you'd like to tween in an "easel" object. Here are some examples:</p>
+ 
+               <div class="listing" version="3.0"><pre>
+//setup stage and create a Shape into which we'll draw a circle later...
+var canvas = document.getElementById('myCanvas'), 
+    stage = new createjs.Stage(canvas),
+    circle = new createjs.Shape(),
+    g = circle.graphics;
+
+//draw a red circle in the Shape
+g.beginFill(createjs.Graphics.getRGB(255, 0, 0));
+g.drawCircle(0, 0, 100);
+g.endFill();
+
+//in order for the ColorFilter to work, we must cache() the circle
+circle.cache(-100, -100, 200, 200);
+
+//place the circle at 200,200
+circle.x = 200;
+circle.y = 200;
+
+//add the circle to the stage
+stage.addChild(circle);
+
+//setup a "tick" event listener so that the EaselJS stage gets updated on every frame/tick
+TweenLite.ticker.addEventListener("tick", stage.update, stage);
+stage.update();
+
+//tween the tint of the circle to green and scale it to half-size
+TweenLite.to(circle, 2, {scaleX:.5, scaleY:.5, easel:{tint:0x00FF00}});
+
+//tween to a different tint that is only 50% (mixing with half of the original color) and animate the scale, position, and rotation simultaneously.
+TweenLite.to(circle, 3, {scaleX:1.5, scaleY:0.8, x:250, y:150, rotation:180, easel:{tint:"#0000FF", tintAmount:0.5}, delay:3, ease:Elastic.easeOut});
+</pre></div>
+ 
+ 
+               <p>You can tween any individual properties of the ColorFilter object like this:</p>
+ 
+               <div class="listing" version="3.0"><pre>
+TweenLite.to(circle, 3, {easel:{colorFilter:{redMultiplier:0.5, blueMultiplier:0.8, greenOffset:100}}});
+</pre></div>
+ 
+               <p>Or you can tween things like the "exposure" of an image which is a value from 0-2 where 1 is normal exposure, 2 
+ is completely overexposed (white) and 0 is completely underexposed (black). Or define a "brightness" value
+ which uses the same concept: a value from 0-2. These effects can be very useful for images in particular.</p>
+ 
+               <p>
+                  <b>Note:</b> a common mistake is to forget to wrap EaselJS-related properties in an <code>easel</code>
+ object which is essential for specifying your intent.</p>
+ 
+ 
+               <p>
+                  <b>Copyright 2008-2012, GreenSock. All rights reserved.</b> This work is subject to the terms in <a href="http://www.greensock.com/terms_of_use.html" target="">http://www.greensock.com/terms_of_use.html</a> or for <a href="http://www.greensock.com/club/" target="">Club GreenSock</a> members, the software agreement that was issued with the membership.</p>
+ 
+            <p></p><br/><hr></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Tue Dec 11 2012, 12:05 PM -06:00  </center></div></body></html><!--<br/>Tue Dec 11 2012, 12:05 PM -06:00  -->

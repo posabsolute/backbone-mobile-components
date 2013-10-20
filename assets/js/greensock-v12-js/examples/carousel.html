@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Carnation Carousel Demo (from, to, ease)</title>
+    <script type="text/javascript" src="../src/minified/plugins/CSSPlugin.min.js"></script>
+    <script type="text/javascript" src="../src/minified/easing/EasePack.min.js"></script>
+	<script type="text/javascript" src="../src/minified/TweenLite.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<style type="text/css">
+		html, body { overflow:hidden; }
+		body {
+			background:url(img/carnation_background_pattern_1.gif);
+			margin:0px;
+			padding:0px;
+			color:#CCCCCC;
+			font-family:Verdana, Geneva, sans-serif;
+		}
+		.container > div {
+			position:absolute;
+			text-align:center;
+			font-size:200px;
+			top:25%;
+			-moz-border-radius: 10px;
+			-webkit-border-radius: 10px;
+			border-radius: 10px;
+			width:40%;
+			height:50%;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+		.container > div span {
+			display:block;
+			position:relative;
+			top:50%;
+			margin:-125px 0 0 0;
+			color:#FFF;
+		}
+		.front {
+			background:#480e6e;
+			left:30%;
+			z-index:500;
+		}
+		.right {
+			background:#fc4239;
+			left:60%;
+			z-index:300;
+		}
+		.back {
+			background:#ffd400;
+			left:30%;
+			z-index:100;
+		}
+		.left {
+			background:#00c4df;
+			left:0%;
+			z-index:300;
+		}
+		[data-pos="right"],
+		[data-pos="left"] {	cursor:pointer; }
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div data-pos="front" class="front"><span unselectable="on">1</span></div>
+		<div data-pos="right" class="right"><span unselectable="on">2</span></div>
+		<div data-pos="back" class="back"><span unselectable="on">3</span></div>
+		<div data-pos="left" class="left"><span unselectable="on">4</span></div>
+	</div>
+	<script language="JavaScript" type="text/javascript">
+	(function() {	
+		
+		var positions = {
+						 left:  {scale:0.75, left:"0%", top:"25%", zIndex:300},
+						 right: {scale:0.75, left:"60%", top:"25%", zIndex:300},
+						 front: {scale:1, left:"30%", top:"25%", zIndex:500},
+						 back:  {scale:0.5, left:"30%", top:"25%", zIndex:100}
+						};
+		var boxes = [$('[data-pos="back"]'), $('[data-pos="left"]'), $('[data-pos="right"]'), $('[data-pos="front"]')];
+		
+		//drop things into place (intro)
+		for (var i = 0; i < boxes.length; i++) {
+			TweenLite.from(boxes[i], 0.3, {css:{opacity:0}, delay:i * 0.1 + 0.25});
+			TweenLite.fromTo(boxes[i], 1, {css:{top:"-50%"}}, {css:positions[boxes[i].attr("data-pos")], delay:i * 0.1 + 0.25, ease:Elastic.easeOut, immediateRender:true});
+		}
+		
+		function takeTo(object, css_propertyes, position_name) {
+			TweenLite.to(object, 0.5, {
+					css:css_propertyes,
+					ease:Power2.easeOut,
+					onStart : function(){
+						object.attr("data-pos", position_name);
+					}
+			});
+		}
+		function rotateLeft () {
+			takeTo($('[data-pos="back"]'), positions.left, "left");
+			takeTo($('[data-pos="front"]'), positions.right, "right");
+			takeTo($('[data-pos="right"]'), positions.back, "back");
+			takeTo($('[data-pos="left"]'), positions.front, "front");
+		}
+		function rotateRight () {
+			takeTo($('[data-pos="back"]'), positions.right, "right");
+			takeTo($('[data-pos="front"]'), positions.left, "left");
+			takeTo($('[data-pos="right"]'), positions.front, "front");
+			takeTo($('[data-pos="left"]'), positions.back, "back");	
+		}
+		$('[data-pos="left"]').live('click', function () {
+			rotateLeft();
+		});
+		$('[data-pos="right"]').live('click', function () {
+			rotateRight();	
+		});
+	})();
+	</script>
+</body>
+</html>

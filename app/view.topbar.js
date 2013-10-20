@@ -1,0 +1,1 @@
+var Topbar = Backbone.MobileTopbarView.extend({});
