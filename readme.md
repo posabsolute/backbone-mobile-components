@@ -1,12 +1,12 @@
-# Backbone Mobile components v0.1 (alpha)
+# Backbone Mobile components v0.9 (beta)
 
 [![Build Status](https://travis-ci.org/posabsolute/backbone-mobile-components.png?branch=master)](https://travis-ci.org/posabsolute/backbone-mobile-components)
 
 Include 7 components to use with backbone to help you get started with doing mobile web apps. This is not a boilerplate project, 
 it do not assume anything about your structure or stack.
 
-This project should be seen as a starting point for your backbone mobile app, taking the components modifying to the core to fit your needs is encouraged, mush like backbone.js.
-Also please be advice this is an alpha release, it has never to this point used in a production application.
+This project should be seen as a starting point for your backbone mobile app, taking the components, modifying to the core to fit your needs is encouraged, much like backbone.js.
+Also please be advice this is a beta release.
 
 
 *Documentation: http://documentup.com/posabsolute/backbone-mobile-components*
@@ -222,14 +222,14 @@ Helping you handle list views that are pretty comming in mobile apps.
 
 ### init & renderering
 
-var contacts = new Backbone.ListView({
-    el : this.$el,
-    collection : new appmobile.collections.Contacts(),
-    itemView : "#list_contact_item",
-    fetch : {
-        list_id : this.options.id
-    }
-});
+    var contacts = new Backbone.ListView({
+        el : this.$el,
+        collection : new appmobile.collections.Contacts(),
+        itemView : "#list_contact_item",
+        fetch : {
+            list_id : this.options.id
+        }
+    });
         
 
 ### Options

@@ -108,33 +108,5 @@ Backbone.MobilePageView = Backbone.View.extend({
                 if (options && options.complete) self.successFunc(options.complete);
             }
         });
-    },
-    checkPageModel : function(options){
-        var self = this;
-        if(!this.model){
-            if($.pageload) $.pageload.show();
-            this.model = new options.newModel();
-            this.model.fetch({
-                type: (options.type) ? options.type : 'POST',
-                data: $.param(options.params)
-            }).success(function(data){  
-                if(options.success) options.success();
-            });
-        }else{
-            options.success();
-        }
-    },
-    checkPageCollection : function (options) {
-         if(!options.collection.length){
-            if($.pageload) $.pageload.show();
-            options.collection.fetch({
-                data: params,
-                success : function (content) {
-                    if(options.success) options.success(content);
-                }
-            });
-        }else{
-            options.success();
-        }   
     }
 });
