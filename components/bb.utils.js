@@ -96,3 +96,17 @@ Backbone.bbUtils = {
         return content;
     }
 };
+
+// Compatibility override - Backbone 1.1 got rid of the 'options' binding
+// automatically to views in the constructor - we need to keep that.
+Backbone.View = (function(View) {
+   return View.extend({
+        constructor: function(options) {
+            this.options = options;
+            // automaticcally extend events & init from sub views.
+            if(this.constructor.__super__.events) this.events = _.extend({},this.constructor.__super__.events,this.events);
+            if(this.constructor.__super__.initialize) this.constructor.__super__.initialize.apply(this, arguments);
+            View.apply(this, arguments);
+        }
+    });
+})(Backbone.View);
